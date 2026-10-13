@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@import "./tokens.css";
+@import "./desktop.css";
+@import "./windows.css";
+@import "./shell.css";
+@import "./explorer.css";
+@import "./apps.css";

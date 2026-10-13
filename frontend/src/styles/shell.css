@@ -1,0 +1,561 @@
+.panel-backdrop {
+  position: absolute;
+  inset: 0 0 48px;
+  z-index: 3000;
+}
+.start-menu {
+  position: absolute;
+  width: 640px;
+  height: 654px;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100dvh - 72px);
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3500;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: panel-enter 0.15s ease-out;
+}
+@keyframes panel-enter {
+  from {
+    opacity: 0.5;
+    translate: 0 20px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+.start-search {
+  height: 33px;
+  margin: 32px 32px 25px;
+  flex-shrink: 0;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-bottom: 2px solid var(--accent);
+  border-radius: 5px;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.start-search input {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-size: 13px;
+}
+.start-section-title {
+  margin: 0 48px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 28px;
+  flex-shrink: 0;
+}
+.start-section-title strong {
+  font-weight: 600;
+}
+.pinned-grid {
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  flex-shrink: 0;
+}
+.pinned-grid > button {
+  height: 84px;
+  padding: 8px 2px 4px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+}
+.pinned-grid > button:hover {
+  background: var(--hover);
+}
+.pinned-grid > button span:last-child {
+  font-size: 12px;
+  line-height: 15px;
+  max-width: 86px;
+  text-align: center;
+}
+.recommended-title {
+  margin-top: 24px;
+}
+.recommended-empty {
+  color: var(--secondary);
+  font-size: 13px;
+  padding: 12px 48px;
+  flex: 1;
+}
+.start-footer {
+  height: 64px;
+  min-height: 64px;
+  margin-top: auto;
+  padding: 0 40px 0 48px;
+  background: #00000004;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.start-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 5px;
+  padding: 5px 8px;
+  font-size: 12px;
+}
+.start-user:hover {
+  background: var(--hover);
+}
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #d5d9df;
+  color: #777;
+  overflow: hidden;
+}
+.start-results {
+  overflow-y: auto;
+  padding-top: 4px;
+  flex: 1;
+}
+.app-result-list {
+  padding: 0 32px 16px;
+}
+.app-result {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  gap: 16px;
+  padding: 14px;
+  border-radius: 5px;
+}
+.app-result:hover {
+  background: var(--hover);
+}
+.app-result > span {
+  flex: 1;
+}
+.app-result small {
+  display: block;
+  color: var(--secondary);
+  font-size: 12px;
+  margin-top: 3px;
+}
+.power-container {
+  position: relative;
+}
+.power-menu {
+  position: absolute;
+  bottom: 42px;
+  right: -6px;
+  width: 150px;
+  padding: 4px;
+}
+.power-menu button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+.power-menu button:hover {
+  background: var(--hover);
+}
+.quick-settings {
+  position: absolute;
+  width: 360px;
+  right: 12px;
+  bottom: 60px;
+  z-index: 3500;
+  overflow: hidden;
+  animation: panel-enter 0.15s ease-out;
+}
+.quick-grid {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px 14px;
+}
+.quick-grid > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+}
+.quick-grid button {
+  width: 94px;
+  height: 49px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+}
+.quick-grid button:hover {
+  filter: brightness(0.97);
+}
+.quick-grid button.enabled {
+  background: var(--accent);
+  color: #fff;
+  border-color: transparent;
+}
+.quick-grid span {
+  font-size: 12px;
+}
+.quick-sliders {
+  padding: 2px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.quick-sliders label {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.quick-sliders input {
+  flex: 1;
+  width: 100%;
+  height: 4px;
+}
+.quick-sliders label > button {
+  width: 21px;
+  height: 24px;
+}
+.quick-settings > footer {
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #00000004;
+  border-top: 1px solid var(--border);
+}
+.quick-settings > footer > span {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+}
+.calendar-panel {
+  position: absolute;
+  width: 360px;
+  right: 12px;
+  bottom: 60px;
+  z-index: 3500;
+  padding: 20px;
+  animation: panel-enter 0.15s ease-out;
+}
+.calendar-date {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+}
+.calendar-date > span {
+  font-size: 13px;
+}
+.calendar-date > strong {
+  font-size: 30px;
+  font-weight: 600;
+}
+.calendar-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0 6px;
+}
+.calendar-heading > button {
+  font-weight: 600;
+  font-size: 14px;
+}
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  text-align: center;
+}
+.calendar-grid > * {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+.calendar-grid button {
+  border-radius: 50%;
+}
+.calendar-grid button:hover {
+  background: var(--hover);
+}
+.calendar-grid button.today {
+  background: var(--accent);
+  color: white;
+}
+.calendar-grid button.selected-day {
+  outline: 1px solid var(--accent);
+  outline-offset: -3px;
+}
+.calendar-weekday {
+  color: var(--secondary);
+}
+.widgets-panel {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  bottom: 60px;
+  width: 380px;
+  z-index: 3500;
+  padding: 20px;
+  overflow-y: auto;
+}
+.widgets-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.widgets-heading strong {
+  font-size: 22px;
+  font-weight: 600;
+}
+.calendar-widget {
+  position: static;
+  width: 100%;
+  background: var(--surface);
+  border-radius: 8px;
+}
+.widget-app {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  margin-top: 16px;
+  padding: 18px;
+  background: var(--surface);
+  border-radius: 8px;
+}
+.widget-app > svg {
+  margin-left: auto;
+}
+.task-view {
+  position: absolute;
+  inset: 0 0 48px;
+  z-index: 3500;
+  backdrop-filter: blur(25px);
+  background: #ffffff15;
+  display: flex;
+  flex-direction: column;
+}
+.task-view-windows {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  overflow: auto;
+  padding: 32px;
+}
+.task-view-windows > button {
+  width: 250px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--mica);
+  box-shadow: var(--shadow);
+  border: 2px solid transparent;
+}
+.task-view-windows > button:hover {
+  border-color: var(--accent);
+}
+.task-view-windows header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  font-size: 12px;
+}
+.task-view-windows > button > div {
+  height: 140px;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.task-view-empty {
+  color: white;
+  text-shadow: 0 1px 4px #000;
+}
+.task-view footer {
+  background: var(--acrylic);
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+.virtual-desktop {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.virtual-desktop img {
+  height: 105px;
+  width: 190px;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+}
+.virtual-desktop strong {
+  font-size: 13px;
+}
+.hidden-tray {
+  position: absolute;
+  right: 210px;
+  bottom: 60px;
+  padding: 12px;
+  z-index: 3500;
+}
+.language-panel {
+  position: absolute;
+  right: 80px;
+  bottom: 60px;
+  padding: 16px;
+  z-index: 3500;
+  width: 310px;
+}
+.language-panel strong {
+  font-size: 13px;
+}
+.language-panel > button {
+  margin-top: 12px;
+  padding: 12px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-radius: 4px;
+  background: var(--selected);
+}
+.language-panel > button > span:nth-child(2) {
+  text-align: left;
+  flex: 1;
+  font-size: 12px;
+}
+.language-panel small {
+  display: block;
+  margin-top: 4px;
+  color: var(--secondary);
+}
+.desktop-context {
+  position: absolute;
+  width: 280px;
+  padding: 4px;
+  z-index: 4500;
+  font-size: 13px;
+}
+.desktop-context button {
+  width: 100%;
+  height: 35px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 4px;
+  text-align: left;
+}
+.desktop-context button:hover {
+  background: var(--hover);
+}
+.desktop-context button > span {
+  flex: 1;
+}
+.desktop-context hr {
+  margin: 4px -4px;
+}
+.context-submenu-container {
+  position: relative;
+}
+.context-submenu {
+  position: absolute;
+  left: 100%;
+  top: -4px;
+  width: 230px;
+  padding: 4px;
+}
+.desktop-context .menu-check {
+  display: flex;
+  align-items: center;
+  width: 14px;
+  flex: initial;
+}
+@media (max-width: 600px) {
+  .start-menu {
+    width: calc(100vw - 16px);
+    bottom: 56px;
+    max-height: calc(100dvh - 64px);
+  }
+  .start-search {
+    margin: 20px 20px 16px;
+  }
+  .start-section-title {
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+  .pinned-grid {
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0 12px;
+    overflow-y: auto;
+    flex-shrink: 1;
+  }
+  .pinned-grid > button {
+    min-height: 76px;
+    height: 76px;
+  }
+  .pinned-grid > button span:last-child {
+    font-size: 11px;
+  }
+  .recommended-title,
+  .recommended-empty {
+    display: none;
+  }
+  .start-footer {
+    padding: 0 24px;
+  }
+  .quick-settings,
+  .calendar-panel {
+    max-width: calc(100vw - 16px);
+    right: 8px;
+    bottom: 56px;
+  }
+  .widgets-panel {
+    width: calc(100vw - 16px);
+    left: 8px;
+    top: 8px;
+  }
+  .context-submenu {
+    left: auto;
+    right: 10px;
+    top: 35px;
+  }
+  .language-panel {
+    right: 8px;
+  }
+}

@@ -1,0 +1,390 @@
+.explorer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+}
+.explorer-tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 225px;
+  height: 36px;
+  margin: 0 0 0 12px;
+  background: var(--surface);
+  border-radius: 6px 6px 0 0;
+  padding: 0 12px;
+  position: relative;
+}
+.explorer-tab > span {
+  flex: 1;
+}
+.explorer-tab > button {
+  position: absolute;
+  left: calc(100% + 6px);
+}
+.explorer-commandbar {
+  height: 48px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.explorer-commandbar > button {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 10px;
+  border-radius: 4px;
+}
+.explorer-commandbar > button:hover {
+  background: var(--hover);
+}
+.explorer-commandbar > i {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+  margin: 0 7px;
+}
+.explorer-navigation {
+  height: 52px;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px;
+  background: var(--surface);
+}
+.nav-arrows {
+  display: flex;
+  gap: 4px;
+}
+.address-bar {
+  border: 1px solid var(--border);
+  height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 10px;
+  flex: 1;
+  min-width: 80px;
+  background: var(--mica);
+}
+.address-bar > span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.address-bar > button {
+  width: 22px;
+  height: 24px;
+}
+.explorer-search {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  height: 32px;
+  width: 230px;
+  border: 1px solid var(--border);
+  background: var(--mica);
+}
+.explorer-search input {
+  background: transparent;
+  border: 0;
+  outline: 0;
+  width: 100%;
+  font-size: 12px;
+}
+.explorer-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+.explorer-sidebar {
+  width: 200px;
+  min-width: 200px;
+  border-right: 1px solid var(--border);
+  padding: 8px 4px;
+  background: var(--mica);
+  overflow-y: auto;
+}
+.explorer-sidebar > button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px 0 20px;
+  height: 36px;
+  border-radius: 4px;
+  position: relative;
+}
+.explorer-sidebar > button:hover {
+  background: var(--hover);
+}
+.explorer-sidebar > button.selected {
+  background: var(--selected);
+}
+.explorer-sidebar > button.selected::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  height: 16px;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 3px;
+}
+.explorer-sidebar > button > svg:first-child {
+  color: #1675b8;
+}
+.explorer-sidebar > button > span {
+  flex: 1;
+  text-align: left;
+}
+.explorer-sidebar > button > svg:last-child:not(:first-child) {
+  color: var(--secondary);
+}
+.explorer-sidebar > hr {
+  margin: 8px 12px;
+}
+.explorer-files {
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+  padding: 12px 18px;
+  background: var(--surface);
+}
+.file-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--secondary);
+  font-size: 13px;
+  padding: 6px 0 14px;
+}
+.file-view-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+  gap: 8px;
+  align-content: start;
+}
+.file-view-grid .file-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 6px 10px;
+  min-height: 110px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.file-item:hover {
+  background: var(--hover);
+}
+.file-item.selected {
+  background: var(--selected);
+  border-color: var(--border);
+}
+.file-view-list .file-item,
+.file-list-header {
+  display: grid;
+  grid-template-columns: 20px minmax(120px, 1fr) 120px 110px 65px;
+  width: 100%;
+  align-items: center;
+  text-align: left;
+  gap: 8px;
+  height: 34px;
+  padding: 0 6px;
+  white-space: nowrap;
+  font-size: 12px;
+  border-radius: 3px;
+}
+.file-list-header {
+  grid-template-columns: minmax(148px, 1fr) 120px 110px 65px;
+  color: var(--secondary);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 6px;
+}
+.file-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.explorer-status {
+  height: 27px;
+  min-height: 27px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  font-size: 11px;
+}
+.explorer-status > div {
+  display: flex;
+}
+.explorer-status button {
+  height: 24px;
+  width: 25px;
+}
+@media (max-width: 600px) {
+  .explorer-sidebar {
+    min-width: 140px;
+    width: 140px;
+  }
+  .explorer-sidebar > button {
+    padding-left: 10px;
+    gap: 9px;
+  }
+  .explorer-sidebar > button > svg:last-child:not(:first-child) {
+    display: none;
+  }
+  .explorer-navigation {
+    padding: 0 8px;
+    gap: 8px;
+  }
+  .nav-arrows {
+    gap: 0;
+  }
+  .nav-arrows > button {
+    width: 26px;
+  }
+  .explorer-search {
+    width: 105px;
+  }
+  .address-bar {
+    padding: 0 4px;
+    gap: 4px;
+  }
+  .address-bar > svg {
+    display: none;
+  }
+  .explorer-files {
+    padding: 8px;
+  }
+  .file-view-grid {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  }
+  .file-view-list {
+    min-width: 550px;
+  }
+}
+.address-bar > span.pc-icon {
+  flex: none;
+  overflow: visible;
+}
+.explorer-tab {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  height: 32px;
+}
+.explorer-commandbar {
+  position: relative;
+}
+.explorer-commandbar > .icon-button {
+  width: 32px;
+  padding: 0;
+  justify-content: center;
+}
+.explorer-more {
+  left: auto;
+  right: 10px;
+  top: 40px;
+}
+.explorer-more > button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.properties-overlay {
+  position: absolute;
+  inset: 40px 0 0;
+  background: #00000010;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.folder-properties {
+  width: 360px;
+  max-width: calc(100% - 24px);
+  background: var(--mica);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  font-size: 13px;
+  overflow: hidden;
+}
+.folder-properties > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 34px;
+  padding-left: 12px;
+  font-size: 12px;
+}
+.properties-body {
+  padding: 12px 18px 24px;
+  background: var(--surface);
+}
+.properties-body > strong {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 400;
+  border-bottom: 2px solid var(--accent);
+  padding: 4px 8px;
+  margin-bottom: 12px;
+}
+.properties-name {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 0;
+}
+.properties-body dl {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 18px 8px;
+  padding: 18px 0;
+}
+.properties-body label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 18px;
+}
+.properties-body label > span {
+  margin-right: 16px;
+}
+.folder-properties > footer {
+  padding: 12px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.folder-properties > footer button {
+  min-width: 75px;
+  justify-content: center;
+}
+@media (max-width: 600px) {
+  .explorer-commandbar {
+    gap: 2px;
+    padding: 0 8px;
+  }
+  .explorer-commandbar > i {
+    margin: 0 2px;
+  }
+  .explorer-commandbar > .icon-button:nth-of-type(3),
+  .explorer-commandbar > .icon-button:nth-of-type(4) {
+    display: none;
+  }
+}

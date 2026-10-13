@@ -1,0 +1,29 @@
+{
+  "name": "windows-11-portfolio",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:client": "vite --host 127.0.0.1",
+    "dev:server": "go -C ../backend run ./cmd/server -dev",
+    "build": "node scripts/build.mjs",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:server": "go -C ../backend test ./...",
+    "start": "go -C ../backend run ./cmd/server"
+  },
+  "dependencies": {
+    "chess.js": "1.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.0",
+    "@tailwindcss/vite": "4.3.3",
+    "@vitejs/plugin-react": "6.1.2",
+    "tailwindcss": "4.3.3",
+    "vite": "8.3.4",
+    "vitest": "5.0.4"
+  }
+}

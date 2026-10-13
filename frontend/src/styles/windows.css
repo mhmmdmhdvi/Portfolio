@@ -1,0 +1,200 @@
+﻿.app-window {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background: var(--mica);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 5px 18px #0003;
+  overflow: visible;
+  outline: 0;
+}
+.app-window[hidden] {
+  display: none;
+}
+.app-window.active {
+  box-shadow:
+    0 12px 38px #0004,
+    0 0 0 1px #00000010;
+}
+.app-window.maximized {
+  border-radius: 0;
+  border: 0;
+}
+.window-titlebar {
+  height: 32px;
+  min-height: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px 8px 0 0;
+  touch-action: none;
+}
+.window-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 12px;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.window-controls {
+  display: flex;
+  align-self: stretch;
+  margin-left: auto;
+}
+.window-controls > button,
+.maximize-control > button {
+  width: 46px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.window-controls button:hover {
+  background: var(--hover);
+}
+.window-controls .close-button:hover {
+  color: #fff;
+  background: #c42b1c;
+}
+.window-controls .close-button {
+  border-radius: 0 7px 0 0;
+}
+.window-content {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 0 0 8px 8px;
+}
+.maximized .window-content {
+  border-radius: 0;
+}
+.maximize-control {
+  position: relative;
+}
+.snap-layouts {
+  position: absolute;
+  top: 31px;
+  right: -30px;
+  width: 160px;
+  background: var(--acrylic);
+  box-shadow: var(--shadow);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  gap: 4px;
+  z-index: 40;
+}
+.snap-layouts > button {
+  width: 64px;
+  height: 50px;
+  background: var(--hover);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+.snap-layouts > button:hover {
+  background: var(--accent);
+}
+.snap-preview {
+  position: absolute;
+  top: 8px;
+  bottom: 56px;
+  width: calc(50% - 16px);
+  background: #ffffff40;
+  border: 1px solid #ffffffa0;
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  z-index: 5;
+  pointer-events: none;
+}
+.snap-left {
+  left: 8px;
+}
+.snap-right {
+  right: 8px;
+}
+.snap-top {
+  left: 8px;
+  right: 8px;
+  width: auto;
+}
+.resize-handle {
+  position: absolute;
+  z-index: 30;
+  touch-action: none;
+}
+.resize-n,
+.resize-s {
+  height: 5px;
+  left: 6px;
+  right: 6px;
+  cursor: ns-resize;
+}
+.resize-n {
+  top: -2px;
+}
+.resize-s {
+  bottom: -2px;
+}
+.resize-w,
+.resize-e {
+  width: 5px;
+  top: 6px;
+  bottom: 6px;
+  cursor: ew-resize;
+}
+.resize-w {
+  left: -2px;
+}
+.resize-e {
+  right: -2px;
+}
+.resize-ne,
+.resize-nw,
+.resize-se,
+.resize-sw {
+  width: 9px;
+  height: 9px;
+}
+.resize-ne {
+  right: -2px;
+  top: -2px;
+  cursor: nesw-resize;
+}
+.resize-nw {
+  left: -2px;
+  top: -2px;
+  cursor: nwse-resize;
+}
+.resize-se {
+  right: -2px;
+  bottom: -2px;
+  cursor: nwse-resize;
+}
+.resize-sw {
+  left: -2px;
+  bottom: -2px;
+  cursor: nesw-resize;
+}
+.app-explorer .window-title > span,
+.app-recycle-bin .window-title > span {
+  color: var(--secondary);
+}
+.app-explorer .window-title,
+.app-recycle-bin .window-title,
+.app-notepad .window-title {
+  display: none;
+}
+.app-explorer .window-titlebar,
+.app-recycle-bin .window-titlebar,
+.app-notepad .window-titlebar {
+  height: 40px;
+  min-height: 40px;
+}
+.app-explorer .window-controls button,
+.app-recycle-bin .window-controls button,
+.app-notepad .window-controls button {
+  height: 40px;
+}

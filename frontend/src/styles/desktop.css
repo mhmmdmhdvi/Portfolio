@@ -1,0 +1,340 @@
+.windows-shell {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  isolation: isolate;
+  color: var(--text);
+  background-position: center;
+  background-size: cover;
+}
+.desktop {
+  position: absolute;
+  inset: 0 0 48px;
+  user-select: none;
+}
+.desktop-icons {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0 0 5px;
+  gap: 8px;
+  width: 80px;
+}
+.desktop-icon {
+  width: 76px;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 2px 3px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+.desktop-icon > span:last-child {
+  font-size: 12px;
+  line-height: 15px;
+  color: white;
+  text-shadow:
+    0 1px 2px #000,
+    0 0 4px #0007;
+  text-align: center;
+}
+.desktop-icon:hover {
+  background: #fff2;
+  border-color: #fff2;
+}
+.desktop-icon.selected {
+  background: #ffffff30;
+  border-color: #fff5;
+}
+.desktop-icons-large .desktop-icons {
+  width: 96px;
+  gap: 12px;
+}
+.desktop-icons-large .desktop-icon {
+  width: 94px;
+  min-height: 96px;
+}
+.desktop-icons-small .desktop-icon {
+  min-height: 65px;
+}
+.desktop-tint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6000;
+}
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.boot-screen .windows-logo {
+  position: absolute;
+  top: 32%;
+  gap: 4px;
+}
+.boot-spinner {
+  position: absolute;
+  top: 65%;
+  width: 28px;
+  height: 28px;
+  border: 2.5px solid transparent;
+  border-top-color: #fff;
+  border-right-color: #fff;
+  border-radius: 50%;
+  animation: boot-spin 1.2s cubic-bezier(0.45, 0.1, 0.55, 0.9) infinite;
+}
+@keyframes boot-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.power-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 18px;
+}
+.power-screen button {
+  padding: 16px;
+  border-radius: 50%;
+  border: 1px solid #ffffff50;
+}
+.power-screen button:hover {
+  background: #ffffff20;
+}
+.lock-screen {
+  background-size: cover;
+  background-position: center;
+}
+.lock-screen strong {
+  font-size: 80px;
+  font-weight: 600;
+}
+.lock-screen span {
+  font-size: 24px;
+}
+.taskbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  background: var(--taskbar);
+  backdrop-filter: blur(35px) saturate(1.4);
+  border-top: 1px solid #ffffff30;
+  z-index: 4000;
+  user-select: none;
+}
+.taskbar-apps {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.taskbar-button {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  position: relative;
+  border: 1px solid transparent;
+}
+.taskbar-button:hover,
+.taskbar-button.pressed {
+  background: #ffffff60;
+  border-color: #ffffff30;
+}
+[data-theme="dark"] .taskbar-button:hover,
+[data-theme="dark"] .taskbar-button.pressed {
+  background: #ffffff12;
+}
+.taskbar-button:active > img,
+.taskbar-button:active > span,
+.taskbar-button:active > svg {
+  transform: scale(0.86);
+}
+.app-task.running::after {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  left: 17px;
+  height: 3px;
+  width: 6px;
+  border-radius: 3px;
+  background: #7f7f7f;
+  transition:
+    width 0.15s,
+    left 0.15s;
+}
+.app-task.active {
+  background: #ffffff65;
+}
+[data-theme="dark"] .app-task.active {
+  background: #ffffff12;
+}
+.app-task.active::after {
+  width: 16px;
+  left: 12px;
+  background: var(--accent);
+}
+.taskbar-widget {
+  position: absolute;
+  left: 12px;
+  color: #147aca;
+}
+.taskview-icon {
+  width: 24px;
+  height: 22px;
+  position: relative;
+}
+.taskview-icon::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 16px;
+  height: 22px;
+  border-radius: 2px;
+  background: linear-gradient(130deg, #a4bacb, #65829a);
+}
+.taskview-icon::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 8px;
+  height: 22px;
+  border-radius: 2px;
+  background: linear-gradient(130deg, #9bdefb, #2482d4);
+  box-shadow: -1px 0 2px #fff8;
+}
+.system-tray {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 100%;
+  margin-left: auto;
+  padding-right: 8px;
+}
+.tray-button {
+  min-width: 26px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+.tray-button:hover,
+.tray-clock:hover,
+.tray-button.pressed,
+.tray-clock.pressed {
+  background: #ffffff50;
+}
+.tray-language {
+  display: block;
+  font-size: 11px;
+  line-height: 15px;
+  width: 40px;
+}
+.quick-tray {
+  gap: 7px;
+  padding: 0 8px;
+}
+.tray-clock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  min-width: 82px;
+  height: 40px;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 0 7px;
+  border-radius: 4px;
+}
+.show-desktop {
+  width: 4px;
+  height: 30px;
+  border-left: 1px solid var(--border);
+  margin-left: 5px;
+}
+.show-desktop:hover {
+  background: var(--hover);
+}
+@media (max-width: 900px) {
+  .taskbar-widget {
+    display: none;
+  }
+  .tray-language {
+    display: none;
+  }
+  .quick-tray > svg:last-child {
+    display: none;
+  }
+  .taskbar-apps {
+    left: 8px;
+    transform: none;
+  }
+}
+@media (max-width: 600px) {
+  .taskbar-apps {
+    gap: 0;
+  }
+  .taskbar-apps > button:nth-child(3),
+  .taskbar-apps > button:nth-child(6),
+  .app-task:nth-child(n + 7) {
+    display: none;
+  }
+  .taskbar-button {
+    width: 36px;
+  }
+  .quick-tray {
+    padding: 0 4px;
+    gap: 4px;
+  }
+  .quick-tray > svg:nth-child(2),
+  .system-tray > .tray-button:first-child {
+    display: none;
+  }
+  .system-tray {
+    padding-right: 2px;
+  }
+  .tray-clock {
+    min-width: 74px;
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation-duration: 0.001ms !important;
+  }
+  .boot-spinner {
+    animation: none;
+  }
+}
+.desktop-session {
+  position: absolute;
+  inset: 0;
+}
