@@ -1,0 +1,125 @@
+.desktop-welcome {
+  position: absolute;
+  top: 48%;
+  left: 24%;
+  width: min(42%, 1100px);
+  transform: translateY(-50%);
+  color: #05264d;
+  pointer-events: none;
+}
+
+.desktop-welcome :where(h1, p) {
+  margin: 0;
+}
+
+.desktop-welcome h1 {
+  font-size: clamp(28px, min(6vw, 11vh), 160px);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+}
+
+.desktop-welcome h1 span {
+  display: block;
+}
+
+.desktop-welcome-title {
+  margin-top: clamp(12px, 2vh, 24px);
+  color: #193c78;
+  font-size: clamp(18px, min(2.55vw, 5vh), 64px);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+}
+
+.desktop-welcome-greeting {
+  margin-top: clamp(20px, 4vh, 40px);
+  font-size: clamp(16px, min(2vw, 3.5vh), 40px);
+  line-height: 1.5;
+}
+
+@media (max-aspect-ratio: 4/3) {
+  .windows-shell[data-wallpaper="portfolio-blue"] {
+    background-position: 68% center;
+  }
+
+  .windows-shell[data-wallpaper="portfolio-blue"]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg, #dbedfff5, #dbedffd1 54%, #dbedff33);
+  }
+
+  .desktop-welcome {
+    left: clamp(112px, 14vw, 190px);
+    width: min(72%, 1100px);
+  }
+}
+
+@media (max-aspect-ratio: 1/1) {
+  .windows-shell[data-wallpaper="portfolio-blue"] {
+    background-image: var(--wallpaper-portrait-image);
+    background-position: center;
+  }
+
+  .windows-shell[data-wallpaper="portfolio-blue"]::before {
+    background: none;
+  }
+
+  .desktop-welcome {
+    top: clamp(32px, 6vh, 110px);
+    transform: none;
+  }
+
+  .desktop-welcome-title {
+    margin-top: clamp(12px, 2vh, 24px);
+  }
+
+  .desktop-welcome-greeting {
+    margin-top: clamp(20px, 2vh, 32px);
+  }
+}
+
+@media (max-width: 600px) {
+  .desktop-welcome {
+    left: 112px;
+    width: calc(100% - 130px);
+  }
+
+  .desktop-welcome h1 {
+    font-size: clamp(30px, min(8.5vw, 9vh), 42px);
+  }
+
+  .desktop-welcome-title {
+    font-size: 18px;
+    margin-top: 12px;
+  }
+
+  .desktop-welcome-greeting {
+    font-size: 16px;
+    margin-top: 20px;
+  }
+}
+
+@media (max-height: 500px) {
+  .desktop-welcome {
+    top: 50%;
+    left: max(112px, 18%);
+    width: min(65%, 650px);
+  }
+
+  .desktop-welcome h1 {
+    font-size: clamp(26px, 9vh, 44px);
+  }
+
+  .desktop-welcome-title {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+
+  .desktop-welcome-greeting {
+    margin-top: 16px;
+    font-size: 16px;
+  }
+}

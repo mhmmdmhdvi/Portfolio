@@ -4,6 +4,7 @@
   flex-direction: column;
   background: var(--surface);
   min-width: 0;
+  min-height: 0;
 }
 .game-toolbar {
   display: flex;
@@ -14,6 +15,7 @@
   padding: 10px 14px;
   border-bottom: 1px solid var(--border);
   background: var(--mica);
+  flex-shrink: 0;
 }
 .game-actions {
   display: flex;
@@ -28,6 +30,9 @@
   border-radius: 4px;
   padding: 6px 12px;
   font-size: 12px;
+  min-height: 32px;
+  font-weight: 500;
+  transition: background 120ms;
 }
 .game-button:hover:not(:disabled) {
   background: var(--hover);
@@ -40,12 +45,26 @@
 .game-button.primary:hover:not(:disabled) {
   background: color-mix(in srgb, var(--accent) 88%, #000);
 }
+[data-theme="dark"] .game-button.primary {
+  color: #102536;
+}
+.game-button:focus-visible,
+.game-actions select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.game-button[aria-pressed="true"] {
+  color: var(--accent);
+  background: var(--selected);
+  border-color: var(--accent);
+}
 .game-button:disabled {
   opacity: 0.45;
 }
 .game-status {
   font-size: 12px;
   color: var(--secondary);
+  line-height: 1.5;
 }
 .game-content {
   flex: 1;
@@ -61,6 +80,7 @@
   color: var(--secondary);
   border-top: 1px solid var(--border);
   background: var(--mica);
+  flex-shrink: 0;
 }
 .game-direction-controls {
   display: flex;
@@ -68,6 +88,7 @@
   gap: 8px;
   justify-content: center;
   margin: 10px;
+  flex-shrink: 0;
 }
 .game-direction-controls button {
   min-width: 44px;
@@ -75,21 +96,44 @@
   touch-action: manipulation;
 }
 .arcade-stage {
-  background: #0d1629;
+  background: #101a2b;
   flex: 1;
-  min-height: 0;
+  min-height: 260px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px;
+  padding: 16px;
   overflow: hidden;
 }
 .arcade-stage canvas {
   display: block;
   width: 100%;
+  height: 100%;
   max-height: 100%;
   object-fit: contain;
   touch-action: none;
+}
+.arcade-hud {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.arcade-hud > span {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.arcade-hud small {
+  font-size: 12px;
+  color: var(--secondary);
+}
+.arcade-hud strong {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  font-size: 18px;
 }
 .arcade-score {
   font-variant-numeric: tabular-nums;

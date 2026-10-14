@@ -27,6 +27,19 @@ const typing = (target) =>
 export function Twenty48({ active = true }) {
   const [game, setGame] = useState(() => createGame(seed()));
   const swipe = useRef(null);
+  const board = useRef(null);
+
+  useEffect(() => {
+    if (!active) swipe.current = null;
+  }, [active]);
+
+  useEffect(() => {
+    const onVisibility = () => {
+      if (document.hidden) swipe.current = null;
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, []);
 
   useEffect(() => {
     if (!active) return;
@@ -49,8 +62,22 @@ export function Twenty48({ active = true }) {
   }, [active]);
 
   function move(direction) {
-    if (active && !document.hidden)
+    if (active && !document.hidden) {
       setGame((current) => moveGame(current, direction));
+      board.current?.focus({ preventScroll: true });
+    }
+  }
+
+  function newGame() {
+    swipe.current = null;
+    setGame(createGame(seed()));
+    board.current?.focus({ preventScroll: true });
+  }
+
+  function undo() {
+    swipe.current = null;
+    setGame(undoGame);
+    board.current?.focus({ preventScroll: true });
   }
 
   function finishSwipe(event) {
@@ -79,20 +106,20 @@ export function Twenty48({ active = true }) {
           ? "You reached 2048!"
           : game.status === "lost"
             ? "No moves left"
-            : "Join the numbers"
+            : "Playing"
       }
       toolbar={
         <>
           <button
             className="game-button primary"
-            onClick={() => setGame(createGame(seed()))}
+            onClick={newGame}
           >
             New game
           </button>
           <button
             className="game-button"
             disabled={!game.previous}
-            onClick={() => setGame(undoGame)}
+            onClick={undo}
           >
             Undo
           </button>
@@ -101,24 +128,27 @@ export function Twenty48({ active = true }) {
           </span>
         </>
       }
-      footer="Arrow keys, swipe, or the buttons below to slide. Equal tiles join once per move. Reach 2048, then keep going. Undo restores your last move."
+      footer="Arrow keys or swipe to slide · Match equal tiles · Undo restores one move"
     >
       <div className="twenty48-stage">
         <div className="twenty48-heading">
           <strong>2048</strong>
           <span>
             Merge matching tiles
-            <br />
-            to reach 2048.
           </span>
         </div>
         <div
+          ref={board}
           className="twenty48-board"
           role="group"
           aria-label="2048 board"
+          tabIndex={0}
           onPointerDown={(event) => {
-            if (event.button !== 0 || !active || game.status !== "playing")
+            if (
+              event.button !== 0 || !active || document.hidden || game.status !== "playing"
+            )
               return;
+            board.current?.focus({ preventScroll: true });
             swipe.current = {
               x: event.clientX,
               y: event.clientY,
@@ -137,7 +167,7 @@ export function Twenty48({ active = true }) {
               className={`twenty48-tile tile-${value > 2048 ? "super" : value}`}
               aria-label={`Row ${Math.floor(index / 4) + 1}, column ${(index % 4) + 1}: ${value || "empty"}`}
             >
-              <span key={value}>{value || ""}</span>
+              <span>{value || ""}</span>
             </div>
           ))}
           {game.status !== "playing" && (
@@ -154,7 +184,10 @@ export function Twenty48({ active = true }) {
                 {game.status === "won" && (
                   <button
                     className="game-button primary"
-                    onClick={() => setGame(continueGame)}
+                    onClick={() => {
+                      setGame(continueGame);
+                      board.current?.focus({ preventScroll: true });
+                    }}
                   >
                     Continue
                   </button>
@@ -162,14 +195,14 @@ export function Twenty48({ active = true }) {
                 {game.status === "lost" && game.previous && (
                   <button
                     className="game-button"
-                    onClick={() => setGame(undoGame)}
+                    onClick={undo}
                   >
                     Undo last move
                   </button>
                 )}
                 <button
                   className={`game-button ${game.status === "lost" ? "primary" : ""}`}
-                  onClick={() => setGame(createGame(seed()))}
+                  onClick={newGame}
                 >
                   New game
                 </button>

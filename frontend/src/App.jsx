@@ -8,6 +8,7 @@ import { WindowManager } from "./components/windows/WindowManager";
 import { DesktopProvider, useDesktop } from "./state/DesktopContext";
 import { useClock } from "./hooks/useClock";
 import { usePageVisible } from "./hooks/usePageVisible";
+import { getWallpaper } from "./data/wallpapers";
 
 function WindowsShell() {
   const { preferences, power, setPower, bootKey, restart } = useDesktop();
@@ -15,13 +16,16 @@ function WindowsShell() {
   const completeBoot = useCallback(() => setBooting(false), []);
   const now = useClock();
   const pageVisible = usePageVisible();
+  const wallpaper = getWallpaper(preferences.wallpaper);
   useEffect(() => setBooting(true), [bootKey]);
   return (
     <div
       className="windows-shell"
       data-theme={preferences.theme}
+      data-wallpaper={wallpaper.id}
       style={{
-        backgroundImage: `url(/assets/wallpapers/${preferences.wallpaper}.jpg)`,
+        "--wallpaper-image": `url(${wallpaper.src})`,
+        "--wallpaper-portrait-image": `url(${wallpaper.portraitSrc ?? wallpaper.src})`,
       }}
     >
       <div className="desktop-session" inert={booting || power !== "on"}>
@@ -45,7 +49,7 @@ function WindowsShell() {
           className="power-screen lock-screen"
           aria-label="Wake desktop"
           style={{
-            backgroundImage: `url(/assets/wallpapers/${preferences.wallpaper}.jpg)`,
+            backgroundImage: `url(${wallpaper.src})`,
           }}
           onClick={() => setPower("on")}
         >

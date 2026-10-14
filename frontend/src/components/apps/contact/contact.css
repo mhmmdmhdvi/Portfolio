@@ -1,0 +1,77 @@
+@font-face {
+  font-family: "Contact Persian";
+  src: url("/assets/fonts/vazirmatn-variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+.contact-app {
+  height: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--mica);
+  color: var(--text);
+  container-type: inline-size;
+}
+
+.contact-app[lang="fa"] { font-family: "Contact Persian", Tahoma, sans-serif; }
+.contact-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 18px; flex-shrink: 0; background: var(--surface); border-bottom: 1px solid var(--border); font-size: 12px; }
+.contact-toolbar > span { display: inline-flex; align-items: center; gap: 8px; color: var(--secondary); }
+.contact-language { display: inline-flex; gap: 2px; padding: 2px; border: 1px solid var(--border); border-radius: 5px; background: var(--mica); }
+.contact-language button { padding: 5px 9px; border-radius: 3px; font-size: 12px; }
+.contact-language button:hover { background: var(--hover); }
+.contact-language button[aria-pressed="true"] { color: var(--accent); background: var(--surface); box-shadow: 0 1px 2px #00000015; }
+.contact-scroll { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 24px; }
+.contact-sheet { max-width: 900px; margin: 0 auto; padding: 30px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); user-select: text; }
+.contact-sheet :where(h1, h2, p) { margin: 0; }
+.contact-header { display: grid; grid-template-columns: minmax(0, 1fr) 88px; align-items: center; gap: 24px; padding-bottom: 26px; border-bottom: 2px solid var(--accent); }
+.contact-header h1 { color: var(--text); font-size: clamp(28px, 5cqw, 42px); font-weight: 600; line-height: 1.2; letter-spacing: -0.04em; }
+.contact-name { margin-top: 12px; font-size: 17px; font-weight: 600; line-height: 1.5; }
+.contact-role { margin-top: 3px; color: var(--secondary); font-size: 13px; line-height: 1.6; }
+.contact-portrait { display: block; width: 88px; height: 88px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); }
+.contact-channels { display: grid; gap: 12px; margin-top: 24px; }
+.contact-channel { display: grid; grid-template-columns: 44px minmax(0, 1fr); align-items: start; gap: 12px 16px; padding: 18px; border: 1px solid var(--border); border-radius: 6px; background: var(--mica); }
+.contact-channel-icon { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 8px; background: var(--selected); color: var(--accent); }
+.contact-channel-details { min-width: 0; }
+.contact-channel h2 { font-size: 14px; font-weight: 600; line-height: 1.5; }
+.contact-channel-value { display: block; margin-top: 4px; font-family: "Segoe UI", "Segoe UI Web", Arial, sans-serif; font-size: 14px; line-height: 1.55; overflow-wrap: anywhere; text-align: start; }
+.contact-channel-actions { grid-column: 2; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.contact-action, .contact-copy { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 36px; padding: 7px 12px; border: 1px solid var(--border); border-radius: 4px; font-size: 12px; line-height: 1.5; text-decoration: none; user-select: none; }
+.contact-action { background: var(--accent); color: #fff; border-color: transparent; }
+.contact-action:hover { filter: brightness(.92); }
+.contact-copy { background: var(--surface); color: var(--text); }
+.contact-copy:hover { border-color: var(--accent); background: var(--selected); }
+.contact-copy:disabled { opacity: .6; }
+.contact-app :where(button, a):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.contact-notice { flex-shrink: 0; margin: 0; padding: 9px 18px; background: var(--surface); border-top: 1px solid var(--border); font-size: 12px; line-height: 1.6; }
+.contact-notice:empty { display: none; }
+.contact-app[lang="fa"] .contact-header h1 { letter-spacing: normal; }
+.contact-app[lang="fa"] .contact-channel { line-height: 1.8; }
+.contact-app[lang="fa"] .contact-channel-value { text-align: right; }
+[data-theme="dark"] .contact-action { color: #061c30; }
+
+@container (max-width: 580px) {
+  .contact-toolbar { padding: 8px 12px; }
+  .contact-scroll { padding: 12px; }
+  .contact-sheet { padding: 20px; }
+  .contact-header { grid-template-columns: minmax(0, 1fr) 64px; gap: 12px; padding-bottom: 22px; }
+  .contact-portrait { width: 64px; height: 64px; }
+  .contact-name { font-size: 15px; }
+  .contact-role { font-size: 12px; }
+  .contact-channel { grid-template-columns: 32px minmax(0, 1fr); gap: 10px; padding: 14px; }
+  .contact-channel-icon { width: 32px; height: 32px; border-radius: 6px; }
+  .contact-channel-icon svg { width: 20px; height: 20px; }
+  .contact-channel-actions { grid-column: 1 / -1; }
+  .contact-action, .contact-copy { min-height: 44px; }
+}
+
+@container (max-width: 360px) {
+  .contact-toolbar > span { display: none; }
+  .contact-language { margin-inline-start: auto; }
+  .contact-sheet { padding: 18px 14px; }
+  .contact-header { grid-template-columns: minmax(0, 1fr) 48px; }
+  .contact-portrait { width: 48px; height: 48px; }
+  .contact-header h1 { font-size: 26px; }
+}

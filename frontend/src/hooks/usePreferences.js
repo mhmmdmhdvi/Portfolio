@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { wallpapers } from "../data/wallpapers";
 
 const defaults = {
   theme: "light",
-  wallpaper: "bloom-light",
+  wallpaper: "portfolio-blue",
+  wallpaperVersion: 1,
   volume: 65,
   brightness: 100,
   iconSize: "medium",
@@ -23,7 +25,8 @@ function readPreferences() {
           .map((key) => [key, saved[key]]),
       ),
       theme: saved.theme === "dark" ? "dark" : "light",
-      wallpaper: ["bloom-light", "bloom-dark"].includes(saved.wallpaper)
+      wallpaper: saved.wallpaperVersion === defaults.wallpaperVersion &&
+        wallpapers.some((wallpaper) => wallpaper.id === saved.wallpaper)
         ? saved.wallpaper
         : defaults.wallpaper,
       volume: Number.isFinite(saved.volume)

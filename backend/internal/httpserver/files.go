@@ -53,7 +53,8 @@ func (h *Handler) listFiles(w http.ResponseWriter, r *http.Request) {
 		for _, name := range []string{"Desktop", "Documents", "Downloads", "Music", "Pictures", "Videos"} {
 			files = append(files, fileEntry{Name: name, Path: strings.ToLower(name), Kind: "folder"})
 		}
-		files = append(files, entertainmentFolder())
+		files = append(files, gamesFolder())
+		files = append(files, resumeDocument(), contactDocument())
 		writeJSON(w, r, map[string]any{"files": files})
 		return
 	}
@@ -62,11 +63,19 @@ func (h *Handler) listFiles(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if directory == "desktop" {
-		writeJSON(w, r, map[string]any{"files": []fileEntry{entertainmentFolder()}})
+		writeJSON(w, r, map[string]any{"files": []fileEntry{gamesFolder(), resumeDocument(), contactDocument()}})
 		return
 	}
-	if directory == "entertainment" {
+	if directory == "games" {
 		writeJSON(w, r, map[string]any{"files": gameShortcuts()})
+		return
+	}
+	if directory == "resume" || directory == "documents/resume" {
+		writeJSON(w, r, map[string]any{"files": []fileEntry{resumeDocument()}})
+		return
+	}
+	if directory == "contact" {
+		writeJSON(w, r, map[string]any{"files": []fileEntry{contactDocument()}})
 		return
 	}
 	if directory == "downloads" || directory == "pictures" || directory == "music" || directory == "videos" || directory == "recycle-bin" {

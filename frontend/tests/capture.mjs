@@ -21,7 +21,7 @@ await page.screenshot({
 });
 await page.keyboard.press("Escape");
 await page.getByRole("button", { name: "This PC", exact: true }).dblclick();
-await page.getByText("Folders (6)").waitFor();
+await page.locator(".file-section-heading").waitFor();
 await page.screenshot({ path: "test-results/explorer.png" });
 await page.getByRole("dialog", { name: "File Explorer" }).getByRole("button", { name: "More", exact: true }).click();
 await page.getByRole("button", { name: "Properties", exact: true }).click();

@@ -22,7 +22,7 @@ export function AppIcon({ name, size = 32, folder = false }) {
       </span>
     );
   if (
-    ["solitaire", "snake", "twenty48", "breakout", "pinball", "chess"].includes(
+    ["solitaire", "snake", "twenty48", "breakout", "pinball", "chess", "pdf", "contact", "github"].includes(
       name,
     )
   )

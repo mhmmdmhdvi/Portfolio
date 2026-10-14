@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { apps } from "../../data/apps";
 import { useClock } from "../../hooks/useClock";
 import { useDesktop } from "../../state/DesktopContext";
@@ -15,6 +16,12 @@ export function Taskbar() {
     preferences,
   } = useDesktop();
   const now = useClock();
+  const appButtons = useRef(null);
+  useEffect(() => {
+    appButtons.current?.querySelector(".app-task.active")?.scrollIntoView({
+      block: "nearest", inline: "nearest",
+    });
+  }, [activeId, windows.length]);
   const pinned = ["explorer", "store"];
   const running = windows
     .map((item) => item.appId)
@@ -36,7 +43,7 @@ export function Taskbar() {
       >
         <Glyph name="widgets" size={24} />
       </button>
-      <div className="taskbar-apps">
+      <div className="taskbar-apps" ref={appButtons}>
         <button
           className={`taskbar-button ${panel === "start" ? "pressed" : ""}`}
           aria-label="Start"
@@ -54,7 +61,7 @@ export function Taskbar() {
           <Glyph name="search" size={24} />
         </button>
         <button
-          className={`taskbar-button ${panel === "taskview" ? "pressed" : ""}`}
+          className={`taskbar-button taskview-button ${panel === "taskview" ? "pressed" : ""}`}
           aria-label="Task view"
           title="Task view"
           onClick={() => togglePanel("taskview")}
@@ -64,7 +71,7 @@ export function Taskbar() {
         {[...pinned, ...running].map((id) => (
           <button
             key={id}
-            className={`taskbar-button app-task ${windows.some((item) => item.id === id) ? "running" : ""} ${activeId === id ? "active" : ""}`}
+            className={`taskbar-button app-task ${id === "store" ? "store-task" : ""} ${windows.some((item) => item.id === id) ? "running" : ""} ${activeId === id ? "active" : ""}`}
             title={apps[id].title}
             aria-label={apps[id].title}
             onClick={() => activate(id)}

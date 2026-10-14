@@ -19,7 +19,7 @@ async function boot(page) {
 async function folder(page) {
   await page
     .getByRole("main", { name: "Desktop" })
-    .getByRole("button", { name: "سرگرمی", exact: true })
+    .getByRole("button", { name: "Games", exact: true })
     .dblclick();
   const explorer = page.getByRole("dialog", { name: "File Explorer" });
   for (const title of titles)
@@ -35,7 +35,7 @@ async function game(page, explorer, title) {
   return dialog;
 }
 
-test("Entertainment replaces Edge and launches all seven games", async ({
+test("Games replaces Edge and launches all seven games", async ({
   page,
 }) => {
   const errors = [];
@@ -73,7 +73,7 @@ test("Entertainment replaces Edge and launches all seven games", async ({
   expect(errors).toEqual([]);
 });
 
-test("reopening the desktop folder returns an existing Explorer to Entertainment", async ({
+test("reopening the desktop folder returns an existing Explorer to Games", async ({
   page,
 }) => {
   await boot(page);
@@ -82,7 +82,7 @@ test("reopening the desktop folder returns an existing Explorer to Entertainment
     .getByRole("navigation", { name: "Folders" })
     .getByRole("button", { name: "Documents", exact: true })
     .click();
-  await expect(explorer.getByText("This folder is empty.")).toBeVisible();
+  await expect(explorer.getByRole("searchbox", { name: "Search Documents", exact: true })).toBeVisible();
   await folder(page);
 });
 
@@ -148,7 +148,7 @@ test("all game windows fit a phone and remain usable", async ({ page }) => {
   await boot(page);
   await page
     .getByRole("main", { name: "Desktop" })
-    .getByRole("button", { name: "سرگرمی", exact: true })
+    .getByRole("button", { name: "Games", exact: true })
     .click();
   const explorer = page.getByRole("dialog", { name: "File Explorer" });
   for (const title of titles) {

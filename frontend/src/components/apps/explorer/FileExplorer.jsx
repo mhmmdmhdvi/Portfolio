@@ -259,7 +259,7 @@ export function FileExplorer({ initialPath = "home", openRequest }) {
           {(path === "home" || path === "this-pc") && (
             <div className="file-section-heading">
               <Glyph name="down" size={14} />
-              Folders ({files.length})
+              {files.every((file) => file.kind === "folder") ? "Folders" : "Items"} ({files.length})
             </div>
           )}
           {loading ? (
@@ -292,7 +292,7 @@ export function FileExplorer({ initialPath = "home", openRequest }) {
                   className={`file-item ${selected === file.path ? "selected" : ""}`}
                   onClick={() => {
                     setSelected(file.path);
-                    if (window.innerWidth <= 600) open(file);
+                    if (window.innerWidth <= 600 || window.matchMedia("(pointer: coarse)").matches) open(file);
                   }}
                   onDoubleClick={() => open(file)}
                   onKeyDown={(event) => {
@@ -328,7 +328,7 @@ export function FileExplorer({ initialPath = "home", openRequest }) {
                         {file.kind === "folder"
                           ? "File folder"
                           : file.kind === "app"
-                            ? "Shortcut"
+                            ? (apps[file.appId]?.fileType ?? "Shortcut")
                             : file.name.split(".").at(-1).toUpperCase() +
                               " File"}
                       </span>

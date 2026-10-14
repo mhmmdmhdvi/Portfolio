@@ -41,6 +41,8 @@ export const apps = {
   breakout: { title: "Breakout", icon: "breakout", width: 820, height: 650 },
   pinball: { title: "Pinball", icon: "pinball", width: 580, height: 760 },
   chess: { title: "Chess", icon: "chess", width: 860, height: 720 },
+  resume: { title: "Resume", icon: "pdf", fileType: "PDF Document", width: 1060, height: 760 },
+  contact: { title: "Contact Me", icon: "contact", width: 820, height: 730 },
 };
 
 export const folders = [
@@ -50,7 +52,7 @@ export const folders = [
   { name: "Music", path: "music", glyph: "music" },
   { name: "Pictures", path: "pictures", glyph: "image" },
   { name: "Videos", path: "videos", glyph: "video" },
-  { name: "سرگرمی", path: "entertainment", glyph: "folder" },
+  { name: "Games", path: "games", glyph: "folder" },
 ];
 
 export const pinnedApps = [

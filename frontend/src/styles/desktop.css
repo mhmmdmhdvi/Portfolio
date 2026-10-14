@@ -4,6 +4,7 @@
   position: relative;
   isolation: isolate;
   color: var(--text);
+  background-image: var(--wallpaper-image);
   background-position: center;
   background-size: cover;
 }
@@ -13,15 +14,21 @@
   user-select: none;
 }
 .desktop-icons {
+  --desktop-item-height: 80px;
+  --desktop-icon-gap: 8px;
   display: flex;
   flex-direction: column;
   padding: 8px 0 0 5px;
-  gap: 8px;
+  gap: var(--desktop-icon-gap);
   width: 80px;
+  height: min(100%, calc(var(--desktop-icon-count) * var(--desktop-item-height) + (var(--desktop-icon-count) - 1) * var(--desktop-icon-gap) + 8px));
 }
 .desktop-icon {
+  text-decoration: none;
   width: 76px;
-  min-height: 80px;
+  min-height: 0;
+  max-height: var(--desktop-item-height);
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,6 +36,10 @@
   padding: 5px 2px 3px;
   border: 1px solid transparent;
   border-radius: 3px;
+}
+.desktop-icon > img {
+  min-height: 0;
+  object-fit: contain;
 }
 .desktop-icon > span:last-child {
   font-size: 12px;
@@ -48,15 +59,15 @@
   border-color: #fff5;
 }
 .desktop-icons-large .desktop-icons {
+  --desktop-item-height: 96px;
+  --desktop-icon-gap: 12px;
   width: 96px;
-  gap: 12px;
 }
 .desktop-icons-large .desktop-icon {
   width: 94px;
-  min-height: 96px;
 }
-.desktop-icons-small .desktop-icon {
-  min-height: 65px;
+.desktop-icons-small .desktop-icons {
+  --desktop-item-height: 65px;
 }
 .desktop-tint {
   position: absolute;
@@ -147,6 +158,9 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  max-width: calc(100% - 560px);
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 .taskbar-button {
   height: 40px;
@@ -157,6 +171,7 @@
   border-radius: 4px;
   position: relative;
   border: 1px solid transparent;
+  flex-shrink: 0;
 }
 .taskbar-button:hover,
 .taskbar-button.pressed {
@@ -234,6 +249,7 @@
   height: 100%;
   margin-left: auto;
   padding-right: 8px;
+  flex-shrink: 0;
 }
 .tray-button {
   min-width: 26px;
@@ -291,17 +307,22 @@
     display: none;
   }
   .taskbar-apps {
-    left: 8px;
+    position: static;
     transform: none;
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+    margin-left: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
   }
 }
 @media (max-width: 600px) {
   .taskbar-apps {
     gap: 0;
   }
-  .taskbar-apps > button:nth-child(3),
-  .taskbar-apps > button:nth-child(6),
-  .app-task:nth-child(n + 7) {
+  .taskbar-apps .taskview-button,
+  .taskbar-apps .store-task:not(.running) {
     display: none;
   }
   .taskbar-button {
@@ -321,6 +342,37 @@
   .tray-clock {
     min-width: 74px;
     font-size: 11px;
+  }
+}
+@media (max-height: 420px) {
+  .desktop .desktop-icons {
+    --desktop-item-height: 60px;
+    --desktop-icon-gap: 4px;
+  }
+  .desktop .desktop-icon {
+    gap: 2px;
+    padding-block: 3px;
+  }
+  .desktop-icon > img {
+    width: 32px;
+    height: 32px;
+  }
+}
+@media (max-height: 360px) {
+  .desktop .desktop-icons {
+    --desktop-item-height: 48px;
+  }
+  .desktop .desktop-icon {
+    gap: 0;
+    padding-block: 2px;
+  }
+  .desktop-icon > img {
+    width: 28px;
+    height: 28px;
+  }
+  .desktop-icon > span:last-child {
+    font-size: 11px;
+    line-height: 14px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Glyph } from "../../ui/Glyph";
+import { GameShell } from "../shared/GameShell";
 import { createBoard, revealCells } from "./game";
+import "./minesweeper.css";
 
 const emptyBoard = () =>
   Array.from({ length: 81 }, () => ({
@@ -15,6 +16,11 @@ export function Minesweeper({ active = true }) {
   const [status, setStatus] = useState("ready");
   const [seconds, setSeconds] = useState(0);
   const [flagMode, setFlagMode] = useState(false);
+  const finished = status === "lost" || status === "won";
+  const locked = !active || finished;
+  const flags = board.filter((cell) => cell.flagged).length;
+  const safe = board.filter((cell) => cell.revealed && !cell.mine).length;
+  const clock = `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
   useEffect(() => {
     if (status !== "playing" || !active) return;
     const timer = setInterval(() => {
@@ -23,7 +29,7 @@ export function Minesweeper({ active = true }) {
     return () => clearInterval(timer);
   }, [status, active]);
   function reveal(index) {
-    if (status === "lost" || status === "won" || board[index].revealed) return;
+    if (locked || board[index].revealed) return;
     if (flagMode) {
       flag(index);
       return;
@@ -48,7 +54,7 @@ export function Minesweeper({ active = true }) {
     setBoard(next);
   }
   function flag(index) {
-    if (!board[index].revealed && !["won", "lost"].includes(status))
+    if (!locked && !board[index].revealed)
       setBoard((previous) =>
         previous.map((cell, i) =>
           i === index ? { ...cell, flagged: !cell.flagged } : cell,
@@ -59,22 +65,38 @@ export function Minesweeper({ active = true }) {
     setBoard(emptyBoard());
     setStatus("ready");
     setSeconds(0);
+    setFlagMode(false);
   }
   return (
-    <div className="minesweeper">
-      <header>
-        <span>⚑ {10 - board.filter((cell) => cell.flagged).length}</span>
-        <button className="icon-button" aria-label="New game" onClick={reset}>
-          <Glyph name="refresh" size={22} />
-        </button>
-        <span>{String(seconds).padStart(3, "0")}</span>
-      </header>
-      <div className="mine-board" role="group" aria-label="Minefield">
+    <div className="mw-app">
+      <GameShell
+        title="Minesweeper"
+        status={status === "won" ? "You win!" : status === "lost" ? "Game over" : !active ? "Paused" : status === "playing" ? "Playing" : "Ready"}
+        toolbar={(
+          <>
+            <button type="button" className="game-button primary" onClick={reset} disabled={!active}>New game</button>
+            <button type="button" className={`game-button ${flagMode ? "mw-flag-mode" : ""}`} aria-pressed={flagMode} onClick={() => setFlagMode((value) => !value)} disabled={locked}>
+              <span aria-hidden="true">⚑</span> Flag mode
+            </button>
+          </>
+        )}
+        footer="Click to reveal. Right-click or use Flag mode to place or remove a flag."
+      >
+        <div className="mw-stage">
+          <div className="mw-stats">
+            <div className="mw-stat"><span className="mw-stat-value">{flags}<small>/10</small></span><span>Flags</span></div>
+            <div className="mw-stat"><span className="mw-stat-value">{safe}<small>/71</small></span><span>Safe squares</span></div>
+            <div className="mw-stat"><span className="mw-stat-value" role="timer" aria-label="Elapsed time">{clock}</span><span>Time</span></div>
+          </div>
+      <div className="mw-board" role="group" aria-label="Minefield">
         {board.map((cell, index) => (
           <button
+            type="button"
             key={index}
             aria-label={`Cell ${Math.floor(index / 9) + 1}, ${(index % 9) + 1}${cell.flagged ? ", flagged" : ""}${cell.revealed ? ", revealed" : ""}`}
-            className={`${cell.revealed ? "revealed" : ""} ${cell.mine && cell.revealed ? "mine" : ""} adjacent-${cell.adjacent}`}
+            aria-description={cell.revealed ? cell.mine ? "Mine" : cell.adjacent ? `${cell.adjacent} adjacent ${cell.adjacent === 1 ? "mine" : "mines"}` : "Empty, no adjacent mines" : cell.flagged ? "Flagged. Remove the flag before revealing" : "Unrevealed"}
+            className={`mw-cell ${cell.revealed ? "mw-revealed" : ""} ${cell.mine && cell.revealed ? "mw-mine" : ""} ${cell.flagged && !cell.revealed ? "mw-flagged" : ""} mw-adjacent-${cell.adjacent}`}
+            disabled={locked || cell.revealed}
             onClick={() => reveal(index)}
             onContextMenu={(event) => {
               event.preventDefault();
@@ -91,22 +113,8 @@ export function Minesweeper({ active = true }) {
           </button>
         ))}
       </div>
-      <footer>
-        <button
-          className={`small-button ${flagMode ? "enabled" : ""}`}
-          aria-pressed={flagMode}
-          onClick={() => setFlagMode((value) => !value)}
-        >
-          ⚑ Flag mode
-        </button>
-        <span>
-          {status === "won"
-            ? "You win!"
-            : status === "lost"
-              ? "Game over"
-              : "9 × 9 · 10 mines"}
-        </span>
-      </footer>
+        </div>
+      </GameShell>
     </div>
   );
 }

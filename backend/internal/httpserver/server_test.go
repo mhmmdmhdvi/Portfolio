@@ -68,9 +68,9 @@ func TestSecurityHeaders(t *testing.T) {
 	}
 }
 
-func TestEntertainmentFolder(t *testing.T) {
+func TestGamesFolder(t *testing.T) {
 	handler := fixture(t)
-	for _, directory := range []string{"home", "desktop", "entertainment"} {
+	for _, directory := range []string{"home", "desktop", "games"} {
 		recorder := httptest.NewRecorder()
 		handler.ServeHTTP(recorder, httptest.NewRequest("GET", "/api/files?path="+directory, nil))
 		if recorder.Code != http.StatusOK {
@@ -87,15 +87,15 @@ func TestEntertainmentFolder(t *testing.T) {
 		if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
 			t.Fatal(err)
 		}
-		if directory != "entertainment" {
+		if directory != "games" {
 			found := false
 			for _, file := range response.Files {
-				if file.Name == "سرگرمی" && file.Path == "entertainment" && file.Kind == "folder" {
+				if file.Name == "Games" && file.Path == "games" && file.Kind == "folder" {
 					found = true
 				}
 			}
 			if !found {
-				t.Fatalf("%s is missing entertainment folder", directory)
+				t.Fatalf("%s is missing games folder", directory)
 			}
 			continue
 		}
@@ -103,7 +103,7 @@ func TestEntertainmentFolder(t *testing.T) {
 			t.Fatalf("expected seven games, got %d", len(response.Files))
 		}
 		for _, file := range response.Files {
-			if file.Kind != "app" || file.Path != "entertainment/"+file.AppID || file.AppID == "" {
+			if file.Kind != "app" || file.Path != "games/"+file.AppID || file.AppID == "" {
 				t.Fatalf("invalid shortcut: %+v", file)
 			}
 		}

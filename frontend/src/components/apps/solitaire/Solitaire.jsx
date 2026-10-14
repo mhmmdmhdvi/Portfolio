@@ -29,7 +29,7 @@ export function Solitaire({ active = true }) {
   const [game, setGame] = useState(() => createGame());
   const [selected, setSelected] = useState(null);
   const [message, setMessage] = useState(
-    "Choose a card, then its destination.",
+    "Select a card, then a pile.",
   );
   const locked = !active || game.won;
   const homeCount = game.foundations.reduce(
@@ -44,13 +44,13 @@ export function Solitaire({ active = true }) {
 
   function clearSelection() {
     setSelected(null);
-    setMessage("Choose a card, then its destination.");
+    setMessage("Select a card, then a pile.");
   }
 
   function newGame() {
     setGame(createGame());
     setSelected(null);
-    setMessage("New deal. Build the four suits from ace to king.");
+    setMessage("Select a card, then a pile.");
   }
 
   function attemptMove(source, destination) {
@@ -58,7 +58,7 @@ export function Solitaire({ active = true }) {
     const next = moveCards(game, source, destination);
     if (next === game) {
       setMessage(
-        "That move is not allowed. Try a highlighted pile, or clear the selection.",
+        "Move not allowed. Choose a highlighted pile.",
       );
       return false;
     }
@@ -102,7 +102,7 @@ export function Solitaire({ active = true }) {
         ? game.tableau[source.pileIndex].length - source.cardIndex
         : 1;
     setMessage(
-      `${describeCard(card)}${count > 1 ? ` and ${count - 1} cards below` : ""} selected. Choose a destination.`,
+      `${describeCard(card)}${count > 1 ? ` · ${count} cards` : ""} selected. Choose a highlighted pile.`,
     );
   }
 
@@ -112,8 +112,8 @@ export function Solitaire({ active = true }) {
     else
       setMessage(
         destination.pile === "foundation"
-          ? "Select a matching ace to start this foundation."
-          : "Select a king or a run starting with a king for an empty column.",
+          ? "Start this suit with an ace."
+          : "Empty columns need a king.",
       );
   }
 
@@ -135,7 +135,7 @@ export function Solitaire({ active = true }) {
     setMessage(
       next.waste.length
         ? `${describeCard(next.waste.at(-1))} drawn.`
-        : "Waste recycled. Draw again to turn over the next card.",
+        : "Waste recycled. Draw the next card.",
     );
   }
 
@@ -150,7 +150,7 @@ export function Solitaire({ active = true }) {
     <div className="solitaire-app">
       <GameShell
         title="Solitaire"
-        status={`${!active ? "Paused · " : game.won ? "You won! · " : ""}${game.moves} moves · ${homeCount}/52 home`}
+        status={`${!active ? "Paused · " : game.won ? "Won · " : ""}${game.moves} ${game.moves === 1 ? "move" : "moves"} · ${homeCount}/52 foundations`}
         toolbar={
           <>
             <button
@@ -180,20 +180,22 @@ export function Solitaire({ active = true }) {
             <button
               type="button"
               className="game-button"
+              aria-label="Clear selection"
               onClick={clearSelection}
               disabled={locked || !selected}
             >
-              Clear selection
+              Cancel
             </button>
           </>
         }
-        footer="Click or tap a face-up card, then a pile. Double-click a top card or use To foundation. Build columns downward in alternating colors; only kings fill empty columns."
+        footer="Draw one. Alternate colors and descend by one rank. Empty columns need kings. Double-click a top card to move it to a foundation."
       >
         <div className="solitaire-board" dir="ltr">
           <div className="sol-layout">
             <p className="sol-message" role="status" aria-live="polite">
               {!active ? "Game paused while this window is inactive." : message}
             </p>
+            <div className="sol-zone-labels" aria-hidden="true"><span>Stock &amp; waste</span><span>Foundations · A → K</span></div>
             <div className="sol-top-row">
               <div className="sol-pile">
                 <Card
@@ -346,9 +348,6 @@ export function Solitaire({ active = true }) {
                 );
               })}
             </div>
-            <p className="sol-rules">
-              Draw one · Unlimited recycles · Undo up to 100 moves
-            </p>
           </div>
         </div>
       </GameShell>

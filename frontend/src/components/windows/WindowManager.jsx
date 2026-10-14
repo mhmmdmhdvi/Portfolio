@@ -34,6 +34,8 @@ const TaskManager = load(
   "TaskManager",
 );
 const Terminal = load(() => import("../apps/terminal/Terminal"), "Terminal");
+const Resume = load(() => import("../apps/resume/Resume"), "Resume");
+const Contact = load(() => import("../apps/contact/Contact"), "Contact");
 
 const components = {
   calculator: Calculator,
@@ -51,6 +53,8 @@ const components = {
   store: Store,
   taskmanager: TaskManager,
   terminal: Terminal,
+  resume: Resume,
+  contact: Contact,
 };
 
 export function WindowManager({ enabled = true }) {

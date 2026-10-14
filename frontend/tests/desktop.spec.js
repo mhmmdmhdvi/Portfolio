@@ -1,5 +1,24 @@
 import { test, expect } from "@playwright/test";
 
+test("desktop shortcuts open portfolio windows directly and link to GitHub in the requested order", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("status", { name: "Starting Windows" }).waitFor({ state: "hidden" });
+  const desktop = page.getByRole("main", { name: "Desktop" });
+  await expect(desktop.locator(".desktop-icon")).toHaveText(["This PC", "Recycle Bin", "Games", "Resume", "Contact Me", "GitHub"]);
+  const github = desktop.getByRole("link", { name: "GitHub", exact: true });
+  await expect(github).toHaveAttribute("href", "https://github.com/mhmmdmhdvi");
+  await expect(github).toHaveAttribute("target", "_blank");
+  await expect(github).toHaveAttribute("rel", /noopener/);
+  await expect(github).toHaveAttribute("rel", /noreferrer/);
+  for (const name of ["Resume", "Contact Me"]) {
+    await desktop.getByRole("button", { name, exact: true }).dblclick();
+    const window = page.getByRole("dialog", { name, exact: true });
+    await expect(window).toBeVisible();
+    await expect(page.getByRole("dialog", { name: "File Explorer", exact: true })).toHaveCount(0);
+    await window.getByRole("button", { name: "Close", exact: true }).click();
+  }
+});
+
 test("boots into the desktop after four seconds", async ({ page }) => {
   await page.goto("/");
   await expect(

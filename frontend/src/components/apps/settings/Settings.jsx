@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getWallpaper, wallpapers } from "../../../data/wallpapers";
 import { useDesktop } from "../../../state/DesktopContext";
 import { Glyph } from "../../ui/Glyph";
 
@@ -58,7 +59,7 @@ export function Settings({ section: initialSection = "system" }) {
           <>
             <div className="settings-device">
               <img
-                src={`/assets/wallpapers/${preferences.wallpaper}.jpg`}
+                src={getWallpaper(preferences.wallpaper).src}
                 alt=""
               />
               <div>
@@ -121,7 +122,7 @@ export function Settings({ section: initialSection = "system" }) {
           <>
             <div className="theme-preview">
               <img
-                src={`/assets/wallpapers/${preferences.wallpaper}.jpg`}
+                src={getWallpaper(preferences.wallpaper).src}
                 alt="Current background"
               />
               <div />
@@ -135,10 +136,10 @@ export function Settings({ section: initialSection = "system" }) {
                   aria-label={`${theme === "light" ? "Light" : "Dark"} theme`}
                   className={preferences.theme === theme ? "chosen" : ""}
                   onClick={() =>
-                    updatePreferences({ theme, wallpaper: `bloom-${theme}` })
+                    updatePreferences({ theme })
                   }
                 >
-                  <img src={`/assets/wallpapers/bloom-${theme}.jpg`} alt="" />
+                  <img src={getWallpaper(preferences.wallpaper).src} alt="" />
                   <span>{theme === "light" ? "Light" : "Dark"}</span>
                 </button>
               ))}
@@ -155,8 +156,9 @@ export function Settings({ section: initialSection = "system" }) {
                   updatePreferences({ wallpaper: event.target.value })
                 }
               >
-                <option value="bloom-light">Windows (light)</option>
-                <option value="bloom-dark">Windows (dark)</option>
+                {wallpapers.map((wallpaper) => (
+                  <option key={wallpaper.id} value={wallpaper.id}>{wallpaper.label}</option>
+                ))}
               </select>
             </div>
             <div className="setting-card">

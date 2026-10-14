@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { GameShell } from "../shared/GameShell";
 import { ChessBoard } from "./ChessBoard";
+import { ChessPiece } from "./ChessPiece";
 import { shouldComputerPlay, startComputerTurn } from "./computer";
 import {
   attemptMove,
   createGame,
   getSnapshot,
   legalTargets,
-  PIECE_SYMBOLS,
   undoTurn,
 } from "./game";
 import "./chess.css";
@@ -16,37 +16,40 @@ function Player({ color, turn, mode, captured, thinking }) {
   const name =
     color === "w"
       ? mode === "computer"
-        ? "You · White"
+        ? "You"
         : "White"
       : mode === "computer"
-        ? "Computer · Black"
+        ? "Computer"
         : "Black";
   const enemy = color === "w" ? "b" : "w";
   return (
     <div className={`chess-player${turn === color ? " current" : ""}`}>
-      <span className={`chess-player-avatar ${color}`} aria-hidden="true">
-        {PIECE_SYMBOLS[color].k}
+      <span className="chess-player-avatar" aria-hidden="true">
+        <ChessPiece color={color} type="k" />
       </span>
       <div className="chess-player-name">
-        <strong>{name}</strong>
+        <strong>
+          {name}
+          {mode === "computer" && (
+            <span className="chess-player-color">{color === "w" ? "White" : "Black"}</span>
+          )}
+        </strong>
         <span
           className="chess-captured"
           aria-label={`${captured.length} captured pieces`}
         >
           {captured.length
             ? captured.map((type, index) => (
-                <span key={index} aria-hidden="true">
-                  {PIECE_SYMBOLS[enemy][type]}
-                </span>
+                <ChessPiece key={index} color={enemy} type={type} />
               ))
-            : "No captures yet"}
+            : "No captures"}
         </span>
       </div>
-      {thinking && (
-        <span className="chess-thinking" aria-label="Computer thinking" />
-      )}
       {turn === color && (
-        <span className="chess-turn-dot" aria-label="Current turn" />
+        <span className="chess-player-state">
+          {thinking && <span className="chess-thinking" aria-hidden="true" />}
+          {thinking ? "Thinking" : "To move"}
+        </span>
       )}
     </div>
   );
@@ -75,13 +78,17 @@ function MoveHistory({ history }) {
         {pairs.map((pair, index) => (
           <li key={index}>
             <span className="chess-move-number">{index + 1}.</span>
-            <span>{pair[0]?.san ?? "—"}</span>
-            <span>{pair[1]?.san ?? "—"}</span>
+            <span className={index * 2 === history.length - 1 ? "latest" : undefined}>
+              {pair[0]?.san ?? "—"}
+            </span>
+            <span className={index * 2 + 1 === history.length - 1 ? "latest" : undefined}>
+              {pair[1]?.san ?? "—"}
+            </span>
           </li>
         ))}
       </ol>
       {!history.length && (
-        <p className="chess-history-empty">Your moves will appear here.</p>
+        <p className="chess-history-empty">No moves yet</p>
       )}
     </section>
   );
@@ -101,6 +108,7 @@ export function Chess({ active = true }) {
   const [engineError, setEngineError] = useState("");
   const [retry, setRetry] = useState(0);
   const cancelRef = useRef(null);
+  const layoutRef = useRef(null);
 
   function cancelComputer() {
     cancelRef.current?.();
@@ -167,6 +175,8 @@ export function Chess({ active = true }) {
     setMode(nextMode);
     setEngineError("");
     refreshGame();
+    const content = layoutRef.current?.parentElement;
+    if (content) content.scrollTop = 0;
   }
 
   function undo() {
@@ -220,113 +230,115 @@ export function Chess({ active = true }) {
     ? "Black to move · computer is thinking…"
     : snapshot.status.text;
   return (
-    <GameShell
-      title="Chess"
-      status={status}
-      toolbar={
-        <>
-          <button
-            type="button"
-            className="game-button primary"
-            onClick={() => newGame()}
-          >
-            New game
-          </button>
-          <button
-            type="button"
-            className="game-button"
-            onClick={undo}
-            disabled={!snapshot.history.length}
-          >
-            Undo
-          </button>
-          <select
-            aria-label="Game mode"
-            value={mode}
-            onChange={(event) => newGame(event.target.value)}
-          >
-            <option value="computer">Play computer</option>
-            <option value="local">Two players</option>
-          </select>
-          <button
-            type="button"
-            className="game-button"
-            aria-pressed={flipped}
-            onClick={() => setFlipped((value) => !value)}
-          >
-            Flip board
-          </button>
-        </>
-      }
-      footer="Select a piece, then a highlighted square. Arrow keys move board focus; Enter selects. Changing mode starts a new game."
-    >
-      <div className="chess-layout">
-        <div className="chess-play-area">
-          <Player
-            color={topColor}
-            turn={snapshot.over ? null : snapshot.turn}
-            mode={mode}
-            captured={snapshot.captured[topColor]}
-            thinking={topColor === "b" && thinking}
-          />
-          <ChessBoard
-            snapshot={snapshot}
-            selected={selected}
-            targets={targets}
-            flipped={flipped}
-            enabled={enabled}
-            active={active}
-            promotion={promotion}
-            onSquare={selectSquare}
-            onPromote={promote}
-            onCancelPromotion={() => setPromotion(null)}
-          />
-          <Player
-            color={bottomColor}
-            turn={snapshot.over ? null : snapshot.turn}
-            mode={mode}
-            captured={snapshot.captured[bottomColor]}
-            thinking={bottomColor === "b" && thinking}
-          />
-        </div>
-        <aside className="chess-sidebar">
-          <div
-            className={`chess-position-status${snapshot.over ? " ended" : ""}`}
-          >
-            <span className="chess-status-eyebrow">
-              {snapshot.over
-                ? "Game finished"
-                : mode === "computer"
-                  ? "You play White"
-                  : "Local game"}
-            </span>
-            <strong>{snapshot.status.text}</strong>
-            {!active && !snapshot.over && <span>Game paused</span>}
-            {promotion && <span>Choose a promotion piece.</span>}
-            {engineError && <p role="alert">{engineError}</p>}
-            {engineError && (
-              <button
-                type="button"
-                className="game-button"
-                disabled={!active}
-                onClick={() => setRetry((value) => value + 1)}
-              >
-                Retry move
-              </button>
-            )}
-            {snapshot.over && (
-              <button
-                type="button"
-                className="game-button primary"
-                onClick={() => newGame()}
-              >
-                Play again
-              </button>
-            )}
+    <div className="chess-app">
+      <GameShell
+        title="Chess"
+        status={status}
+        toolbar={
+          <>
+            <button
+              type="button"
+              className="game-button primary"
+              onClick={() => newGame()}
+            >
+              New game
+            </button>
+            <button
+              type="button"
+              className="game-button"
+              onClick={undo}
+              disabled={!snapshot.history.length}
+            >
+              Undo
+            </button>
+            <select
+              aria-label="Game mode"
+              value={mode}
+              onChange={(event) => newGame(event.target.value)}
+            >
+              <option value="computer">Play computer</option>
+              <option value="local">Two players</option>
+            </select>
+            <button
+              type="button"
+              className="game-button"
+              aria-pressed={flipped}
+              onClick={() => setFlipped((value) => !value)}
+            >
+              Flip board
+            </button>
+          </>
+        }
+        footer="Select a piece, then a highlighted square. Arrow keys move board focus; Enter selects. Changing mode starts a new game."
+      >
+        <div ref={layoutRef} className="chess-layout">
+          <div className="chess-play-area">
+            <Player
+              color={topColor}
+              turn={snapshot.over ? null : snapshot.turn}
+              mode={mode}
+              captured={snapshot.captured[topColor]}
+              thinking={topColor === "b" && thinking}
+            />
+            <ChessBoard
+              snapshot={snapshot}
+              selected={selected}
+              targets={targets}
+              flipped={flipped}
+              enabled={enabled}
+              active={active}
+              promotion={promotion}
+              onSquare={selectSquare}
+              onPromote={promote}
+              onCancelPromotion={() => setPromotion(null)}
+            />
+            <Player
+              color={bottomColor}
+              turn={snapshot.over ? null : snapshot.turn}
+              mode={mode}
+              captured={snapshot.captured[bottomColor]}
+              thinking={bottomColor === "b" && thinking}
+            />
           </div>
-          <MoveHistory history={snapshot.history} />
-        </aside>
-      </div>
-    </GameShell>
+          <aside className="chess-sidebar">
+            <div
+              className={`chess-position-status${snapshot.over ? " ended" : ""}`}
+            >
+              <span className="chess-status-eyebrow">
+                {snapshot.over
+                  ? "Game finished"
+                  : mode === "computer"
+                    ? "You play White"
+                    : "Local game"}
+              </span>
+              <strong>{snapshot.status.text}</strong>
+              {!active && !snapshot.over && <span>Game paused</span>}
+              {promotion && <span>Choose a promotion piece.</span>}
+              {engineError && <p role="alert">{engineError}</p>}
+              {engineError && (
+                <button
+                  type="button"
+                  className="game-button"
+                  disabled={!active}
+                  onClick={() => setRetry((value) => value + 1)}
+                >
+                  Retry move
+                </button>
+              )}
+              {snapshot.over && (
+                <button
+                  type="button"
+                  className="game-button primary"
+                  onClick={() => newGame()}
+                >
+                  Play again
+                </button>
+              )}
+            </div>
+            <MoveHistory history={snapshot.history} />
+          </aside>
+        </div>
+      </GameShell>
+    </div>
   );
 }

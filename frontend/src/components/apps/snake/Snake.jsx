@@ -40,19 +40,26 @@ export function Snake({ active = true }) {
     () => typeof document === "undefined" || !document.hidden,
   );
   const swipe = useRef(null);
+  const board = useRef(null);
   const patternId = useId();
 
   useEffect(() => {
     const onVisibility = () => {
       setVisible(!document.hidden);
-      if (document.hidden) setGame(pauseSnake);
+      if (document.hidden) {
+        swipe.current = null;
+        setGame(pauseSnake);
+      }
     };
     document.addEventListener("visibilitychange", onVisibility);
     return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
 
   useEffect(() => {
-    if (!active) setGame(pauseSnake);
+    if (!active) {
+      swipe.current = null;
+      setGame(pauseSnake);
+    }
   }, [active]);
 
   useEffect(() => {
@@ -95,7 +102,23 @@ export function Snake({ active = true }) {
   }, [active, visible]);
 
   function turn(direction) {
-    if (active && visible) setGame((current) => turnSnake(current, direction));
+    if (active && visible) {
+      setGame((current) => turnSnake(current, direction));
+      board.current?.focus({ preventScroll: true });
+    }
+  }
+
+  function togglePlaying() {
+    setGame((current) =>
+      current.status === "playing" ? pauseSnake(current) : startSnake(current),
+    );
+    board.current?.focus({ preventScroll: true });
+  }
+
+  function newGame() {
+    swipe.current = null;
+    setGame(createSnake({ seed: seed() }));
+    board.current?.focus({ preventScroll: true });
   }
 
   function finishSwipe(event) {
@@ -117,7 +140,7 @@ export function Snake({ active = true }) {
   }
 
   const messages = {
-    ready: "Ready when you are",
+    ready: "Ready",
     playing: "Playing",
     paused: "Paused · Resume to continue",
     lost: "Game over",
@@ -136,13 +159,7 @@ export function Snake({ active = true }) {
             disabled={
               !active || !visible || ["lost", "won"].includes(game.status)
             }
-            onClick={() =>
-              setGame((current) =>
-                current.status === "playing"
-                  ? pauseSnake(current)
-                  : startSnake(current),
-              )
-            }
+            onClick={togglePlaying}
           >
             {game.status === "playing"
               ? "Pause"
@@ -152,18 +169,22 @@ export function Snake({ active = true }) {
           </button>
           <button
             className="game-button"
-            onClick={() => setGame(createSnake({ seed: seed() }))}
+            onClick={newGame}
           >
             New game
           </button>
           <span className="arcade-score">Score {game.score}</span>
         </>
       }
-      footer="Arrow keys or WASD to turn · Space to start or pause · Swipe or use the buttons below. Switching windows pauses the game."
+      footer="Arrow keys / WASD or swipe to turn · Space to start or pause"
     >
       <div className="snake-stage">
         <div
+          ref={board}
           className="snake-board"
+          role="group"
+          aria-label="Snake play area"
+          tabIndex={0}
           onPointerDown={(event) => {
             if (
               event.button !== 0 ||
@@ -172,6 +193,7 @@ export function Snake({ active = true }) {
               game.status !== "playing"
             )
               return;
+            board.current?.focus({ preventScroll: true });
             swipe.current = {
               x: event.clientX,
               y: event.clientY,
@@ -245,7 +267,6 @@ export function Snake({ active = true }) {
           </svg>
           {overlay && (
             <div className="snake-overlay">
-              <span className="snake-overlay-label">SNAKE</span>
               <strong>
                 {game.status === "ready"
                   ? "Ready"
@@ -266,37 +287,37 @@ export function Snake({ active = true }) {
                 <button
                   className="game-button primary"
                   disabled={!active || !visible}
-                  onClick={() => setGame(startSnake)}
+                  onClick={togglePlaying}
                 >
                   {game.status === "ready" ? "Start game" : "Resume game"}
                 </button>
               ) : (
                 <button
                   className="game-button primary"
-                  onClick={() => setGame(createSnake({ seed: seed() }))}
+                  onClick={newGame}
                 >
-                  Play again
+                  New game
                 </button>
               )}
             </div>
           )}
         </div>
-      </div>
-      <div
-        className="game-direction-controls snake-controls"
-        aria-label="Snake direction controls"
-      >
-        {arrows.map(([direction, arrow]) => (
-          <button
-            key={direction}
-            className="game-button"
-            aria-label={`Turn ${direction}`}
-            disabled={!active || !visible || game.status !== "playing"}
-            onClick={() => turn(direction)}
-          >
-            {arrow}
-          </button>
-        ))}
+        <div
+          className="game-direction-controls snake-controls"
+          aria-label="Snake direction controls"
+        >
+          {arrows.map(([direction, arrow]) => (
+            <button
+              key={direction}
+              className="game-button"
+              aria-label={`Turn ${direction}`}
+              disabled={!active || !visible || game.status !== "playing"}
+              onClick={() => turn(direction)}
+            >
+              {arrow}
+            </button>
+          ))}
+        </div>
       </div>
     </GameShell>
   );

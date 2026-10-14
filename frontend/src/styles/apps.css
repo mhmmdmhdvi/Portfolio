@@ -614,69 +614,6 @@
 .process-row.selected {
   background: var(--selected);
 }
-.minesweeper {
-  height: 100%;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.minesweeper header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font:
-    24px Consolas,
-    monospace;
-}
-.mine-board {
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  gap: 3px;
-  width: 100%;
-  aspect-ratio: 1;
-}
-.mine-board button {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-bottom-width: 2px;
-  border-radius: 3px;
-  font-weight: 600;
-  font-size: 17px;
-}
-.mine-board button:hover {
-  background: var(--selected);
-}
-.mine-board button.revealed {
-  background: var(--hover);
-  border-color: transparent;
-}
-.mine-board button.mine {
-  background: #c42b1c;
-  color: white;
-}
-.adjacent-1 {
-  color: #0067c0;
-}
-.adjacent-2 {
-  color: #0a8a0a;
-}
-.adjacent-3 {
-  color: #c42b1c;
-}
-.adjacent-4 {
-  color: #6a33a3;
-}
-.minesweeper footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-}
-.minesweeper footer > button.enabled {
-  background: var(--accent);
-  color: #fff;
-}
 @media (max-width: 600px) {
   .settings > aside {
     min-width: 145px;
@@ -730,13 +667,6 @@
   }
   .terminal-prompt {
     font-size: 11px;
-  }
-  .minesweeper {
-    justify-content: flex-start;
-  }
-  .mine-board {
-    max-width: 350px;
-    align-self: center;
   }
   .store {
     padding: 20px 12px;

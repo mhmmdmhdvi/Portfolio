@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import {
   boardRows,
   PIECE_NAMES,
-  PIECE_SYMBOLS,
   PROMOTION_CHOICES,
 } from "./game";
+import { ChessPiece } from "./ChessPiece";
 
 function squareLabel(square, piece, selected, target) {
   const name = piece
@@ -28,12 +28,29 @@ export function ChessBoard({
   const rows = boardRows(flipped);
   const boardRef = useRef(null);
   const promotionRef = useRef(null);
+  const restoreFocusRef = useRef(null);
   const [focusSquare, setFocusSquare] = useState("e2");
   const targetMap = new Map(targets.map((target) => [target.square, target]));
 
   useEffect(() => {
     if (promotion && active) promotionRef.current?.focus();
+    else if (!promotion && active && restoreFocusRef.current) {
+      const square = restoreFocusRef.current;
+      restoreFocusRef.current = null;
+      setFocusSquare(square);
+      boardRef.current?.querySelector(`[data-square="${square}"]`)?.focus({ preventScroll: true });
+    }
   }, [promotion, active]);
+
+  function cancelPromotion() {
+    restoreFocusRef.current = promotion.from;
+    onCancelPromotion();
+  }
+
+  function promote(type) {
+    restoreFocusRef.current = promotion.to;
+    onPromote(type);
+  }
 
   function handleKey(event) {
     if (!active || !event.target.dataset.square) return;
@@ -118,12 +135,7 @@ export function ChessBoard({
                     </span>
                   )}
                   {piece && (
-                    <span
-                      className={`chess-piece ${piece.color === "w" ? "white" : "black"}`}
-                      aria-hidden="true"
-                    >
-                      {PIECE_SYMBOLS[piece.color][piece.type]}
-                    </span>
+                    <ChessPiece color={piece.color} type={piece.type} />
                   )}
                   {target && (
                     <span
@@ -147,7 +159,7 @@ export function ChessBoard({
               if (active && event.key === "Escape") {
                 event.preventDefault();
                 event.stopPropagation();
-                onCancelPromotion();
+                cancelPromotion();
               }
             }}
           >
@@ -161,14 +173,9 @@ export function ChessBoard({
                   type="button"
                   aria-label={`Promote to ${PIECE_NAMES[type]}`}
                   disabled={!active}
-                  onClick={() => onPromote(type)}
+                  onClick={() => promote(type)}
                 >
-                  <span
-                    className={`chess-piece ${snapshot.turn === "w" ? "white" : "black"}`}
-                    aria-hidden="true"
-                  >
-                    {PIECE_SYMBOLS[snapshot.turn][type]}
-                  </span>
+                  <ChessPiece color={snapshot.turn} type={type} />
                   <span>{PIECE_NAMES[type]}</span>
                 </button>
               ))}
@@ -176,7 +183,7 @@ export function ChessBoard({
             <button
               type="button"
               className="game-button"
-              onClick={onCancelPromotion}
+              onClick={cancelPromotion}
             >
               Cancel
             </button>

@@ -2,9 +2,9 @@
 
 A portfolio website with a Windows 11 desktop interface. Built with React, Vite, Tailwind CSS, and a Go server.
 
-The desktop has a four-second startup screen, a Start menu, File Explorer, and windows that can be moved, resized, minimized, and snapped. The سرگرمی folder contains Solitaire, Snake, 2048, Breakout, Pinball, Chess, and Minesweeper. Chess supports a computer opponent and two players on the same screen.
+The desktop has a four-second startup screen, a Start menu, File Explorer, and windows that can be moved, resized, minimized, and snapped. The Games folder contains Solitaire, Snake, 2048, Breakout, Pinball, Chess, and Minesweeper. Chess supports a computer opponent and two players on the same screen.
 
-The desktop and games are implemented. Resume, project, and contact content will be added next. There is no database yet.
+Resume and Contact Me open directly from the desktop. Resume has a portrait, English and Persian versions, and a PDF download for each language. Contact Me has email, LinkedIn, and phone links, with copy buttons and both languages. The GitHub icon opens my profile in a new tab. There is no database.
 
 ```text
 frontend/   React app, styles, assets, and browser tests
@@ -44,6 +44,8 @@ The server accepts these environment variables:
 
 Paths are relative to `backend/` when using the commands above. Add public resume files to `backend/content/`; they appear in Documents. Supported formats are PDF, text, PNG, JPEG, WebP, GIF, MP3, and MP4. Keep private files outside that folder.
 
+Resume content lives in `frontend/src/data/resume.js` and `frontend/src/data/resume.fa.js`. After editing it, run `npm --prefix frontend run resume:pdf` to regenerate both PDFs in `backend/content/resume/`.
+
 To run the checks:
 
 ```sh
@@ -57,4 +59,4 @@ Browser tests use Microsoft Edge on Windows. On Linux or macOS, install Playwrig
 
 Games run in the browser and load when opened. Chess calculations use a worker. Games pause when their window is inactive, the tab is hidden, or the desktop is restarting.
 
-Third-party asset notices are in `frontend/public/assets/LICENSE` and `frontend/public/assets/licenses/chess.LICENSE`.
+Third-party asset notices are in `frontend/public/assets/LICENSE` and `frontend/public/assets/licenses/`.

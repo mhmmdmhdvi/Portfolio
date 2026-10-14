@@ -1,29 +1,69 @@
-.twenty48-stage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 16px; background: #faf8f1; color: #665d50; }
-.twenty48-heading { width: min(100%, 350px); display: flex; align-items: center; justify-content: space-between; gap: 14px; }
-.twenty48-heading strong { font-size: 38px; line-height: 1; letter-spacing: -2px; color: #726858; }
-.twenty48-heading > span { font-size: 11px; line-height: 1.5; text-align: right; color: #8a8071; }
-.twenty48-board { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; padding: 9px; width: min(100%, 350px); aspect-ratio: 1; border-radius: 9px; background: #b8aa98; box-shadow: 0 7px 24px #655d5012; touch-action: none; user-select: none; }
-.twenty48-tile { display: grid; place-items: center; min-width: 0; border-radius: 5px; background: #cec3b5; font-size: clamp(19px, 4vw, 31px); font-weight: 700; font-variant-numeric: tabular-nums; color: #736858; line-height: 1; }
-.twenty48-tile > span { animation: twenty48-appear 110ms ease-out; }
-.twenty48-tile.tile-2 { background: #eee7dc; }
-.twenty48-tile.tile-4 { background: #ece2c7; }
-.twenty48-tile.tile-8 { background: #edb47e; color: #fffaf0; }
-.twenty48-tile.tile-16 { background: #ed996a; color: #fffaf0; }
-.twenty48-tile.tile-32 { background: #ed7f64; color: #fffaf0; }
-.twenty48-tile.tile-64 { background: #eb6548; color: #fffaf0; }
-.twenty48-tile.tile-128 { background: #e8ca6a; color: #fffaf0; font-size: clamp(17px, 3.5vw, 26px); }
-.twenty48-tile.tile-256 { background: #e6c252; color: #fffaf0; font-size: clamp(17px, 3.5vw, 26px); }
-.twenty48-tile.tile-512 { background: #e3b539; color: #fffaf0; font-size: clamp(17px, 3.5vw, 26px); }
-.twenty48-tile.tile-1024, .twenty48-tile.tile-2048 { background: #d9a723; color: #fffaf0; font-size: clamp(15px, 3vw, 22px); }
-.twenty48-tile.tile-2048 { box-shadow: 0 0 16px #f1c74788; }
-.twenty48-tile.tile-super { background: #584f43; color: #fffaf0; font-size: clamp(13px, 2.8vw, 21px); }
-.twenty48-overlay { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; gap: 12px; text-align: center; border-radius: inherit; background: #faf8f1ed; }
-.twenty48-overlay strong { font-size: clamp(19px, 3vw, 25px); color: #726858; }
-.twenty48-overlay p { margin: 0; font-size: 12px; line-height: 1.6; max-width: 250px; }
+﻿.twenty48-stage {
+  --puzzle-frame: #b8aa98;
+  --puzzle-empty: #cec3b5;
+  flex: 1;
+  min-height: 310px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 24px;
+  container-type: size;
+  background: var(--surface);
+  color: var(--text);
+}
+[data-theme="dark"] .twenty48-stage { --puzzle-frame: #625a50; --puzzle-empty: #766c5f; }
+.twenty48-heading { width: min(100%, 380px); display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.twenty48-heading strong { font-size: 28px; font-weight: 600; line-height: 1; }
+.twenty48-heading > span { font-size: 12px; color: var(--secondary); }
+.twenty48-board {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  padding: 10px;
+  width: min(380px, 100cqw, max(180px, calc(100cqh - 108px)));
+  aspect-ratio: 1;
+  flex: none;
+  container-type: inline-size;
+  border-radius: 8px;
+  background: var(--puzzle-frame);
+  touch-action: none;
+  user-select: none;
+}
+.twenty48-board:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.twenty48-tile {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--puzzle-empty);
+  font-size: clamp(16px, 9cqw, 34px);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: #51473c;
+  line-height: 1;
+}
+.twenty48-tile.tile-2 { background: #eee6dc; }
+.twenty48-tile.tile-4 { background: #e7d7bc; }
+.twenty48-tile.tile-8 { background: #edae74; color: #4b2c14; }
+.twenty48-tile.tile-16 { background: #e48e60; color: #402516; }
+.twenty48-tile.tile-32 { background: #e9745b; color: #402516; }
+.twenty48-tile.tile-64 { background: #c85035; color: #fff; }
+.twenty48-tile.tile-128, .twenty48-tile.tile-256, .twenty48-tile.tile-512 { color: #514018; font-size: clamp(14px, 8cqw, 29px); }
+.twenty48-tile.tile-128 { background: #e5c768; }
+.twenty48-tile.tile-256 { background: #dec052; }
+.twenty48-tile.tile-512 { background: #dcb039; }
+.twenty48-tile.tile-1024, .twenty48-tile.tile-2048 { background: #d9a723; color: #413311; font-size: clamp(12px, 6.5cqw, 24px); }
+.twenty48-tile.tile-super { background: #51483f; color: #fff; font-size: clamp(11px, 5.5cqw, 21px); }
+.twenty48-overlay { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; gap: 12px; text-align: center; border-radius: inherit; color: var(--text); background: color-mix(in srgb, var(--surface) 96%, transparent); }
+.twenty48-overlay strong { font-size: 21px; font-weight: 600; }
+.twenty48-overlay p { margin: 0; font-size: 12px; line-height: 1.5; max-width: 250px; color: var(--secondary); }
 .twenty48-overlay-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
-.twenty48-controls { margin: 0; }
-.twenty48-controls .game-button { background: #eee7dc; color: #726858; border-color: #cbbfaf; font-size: 20px; }
-.twenty48-controls .game-button:hover:not(:disabled) { background: #e1d8c9; }
-@keyframes twenty48-appear { from { transform: scale(.88); opacity: .5; } to { transform: scale(1); opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { .twenty48-tile > span { animation: none; } }
-@media (max-width: 500px) { .twenty48-stage { padding: 12px; gap: 10px; } .twenty48-board { gap: 7px; padding: 7px; } .twenty48-heading strong { font-size: 32px; } }
+.twenty48-controls { flex: none; margin: 0; }
+.twenty48-controls .game-button { font-size: 20px; line-height: 1; }
+@media (max-width: 500px) { .twenty48-stage { padding: 16px; gap: 16px; } .twenty48-board { gap: 8px; padding: 8px; } }
