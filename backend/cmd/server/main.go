@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 
@@ -32,7 +33,12 @@ func main() {
 	if devOrigin != "" {
 		webDir = ""
 	}
-	handler, err := httpserver.New(httpserver.Config{ContentDir: env("CONTENT_DIR", "content"), WebDir: webDir, DevOrigin: devOrigin})
+	handler, err := httpserver.New(httpserver.Config{
+		ContentDir:     env("CONTENT_DIR", "content"),
+		WebDir:         webDir,
+		DevOrigin:      devOrigin,
+		TrustedProxies: strings.Split(os.Getenv("TRUSTED_PROXIES"), ","),
+	})
 	if err != nil {
 		log.Fatal(err)
 	}

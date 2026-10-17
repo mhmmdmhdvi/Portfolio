@@ -8,9 +8,10 @@ import (
 )
 
 type Config struct {
-	ContentDir string
-	WebDir     string
-	DevOrigin  string
+	ContentDir     string
+	WebDir         string
+	DevOrigin      string
+	TrustedProxies []string
 }
 
 type Handler struct {
@@ -18,14 +19,19 @@ type Handler struct {
 	web       *os.Root
 	devOrigin string
 	limiter   *rateLimiter
+	proxies   proxyPolicy
 }
 
 func New(config Config) (*Handler, error) {
+	proxies, err := newProxyPolicy(config.TrustedProxies)
+	if err != nil {
+		return nil, err
+	}
 	content, err := os.OpenRoot(config.ContentDir)
 	if err != nil {
 		return nil, err
 	}
-	h := &Handler{content: content, devOrigin: config.DevOrigin, limiter: newRateLimiter(60, 3)}
+	h := &Handler{content: content, devOrigin: config.DevOrigin, limiter: newRateLimiter(60, 3), proxies: proxies}
 	if config.WebDir != "" {
 		h.web, err = os.OpenRoot(config.WebDir)
 		if err != nil {
@@ -44,7 +50,8 @@ func (h *Handler) Close() {
 }
 
 func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	setSecurityHeaders(w, r.TLS != nil)
+	clientIP, secure := h.proxies.clientInfo(r)
+	setSecurityHeaders(w, secure)
 	if r.Method != http.MethodGet && r.Method != http.MethodHead {
 		w.Header().Set("Allow", "GET, HEAD")
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -56,7 +63,7 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Forbidden", http.StatusForbidden)
 			return
 		}
-		if !h.limiter.allow(r.RemoteAddr) {
+		if !h.limiter.allow(clientIP) {
 			w.Header().Set("Retry-After", "60")
 			http.Error(w, "Too many requests", http.StatusTooManyRequests)
 			return

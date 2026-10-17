@@ -43,6 +43,19 @@ The server accepts these environment variables:
 | `CONTENT_DIR` | `content` | Files shown in Documents |
 | `WEB_DIR` | `../frontend/dist` | Frontend build directory |
 | `DEV_ORIGIN` | Unset | Development frontend origin; disables static serving |
+| `TRUSTED_PROXIES` | Unset | Comma-separated proxy IP addresses or CIDRs allowed to supply client IP and HTTPS headers |
+
+When Caddy or Nginx runs on the same server, set `TRUSTED_PROXIES=127.0.0.1/32,::1/128` in the Go service environment and keep `LISTEN_ADDR=127.0.0.1:8080`. This gives each visitor a separate API rate limit and enables HSTS for HTTPS requests forwarded by the proxy. Forwarding headers from other connections are ignored. Leave this setting unset when serving visitors directly.
+
+The proxy must set `X-Forwarded-For` and `X-Forwarded-Proto` and preserve the public `Host`. Caddy does this by default. A minimal Caddyfile is:
+
+```caddyfile
+example.com {
+    reverse_proxy 127.0.0.1:8080
+}
+```
+
+Replace `example.com` with your domain. Trust only the addresses of proxies you control; the Go port should stay private.
 
 Paths are relative to `backend/` when using the commands above. Add public resume files to `backend/content/`; they appear in Documents. Supported formats are PDF, text, PNG, JPEG, WebP, GIF, MP3, and MP4. Keep private files outside that folder.
 
