@@ -4,7 +4,7 @@ test("desktop shortcuts open portfolio windows directly and link to GitHub in th
   await page.goto("/");
   await page.getByRole("status", { name: "Starting Windows" }).waitFor({ state: "hidden" });
   const desktop = page.getByRole("main", { name: "Desktop" });
-  await expect(desktop.locator(".desktop-icon")).toHaveText(["This PC", "Recycle Bin", "Games", "Resume", "Contact Me", "GitHub"]);
+  await expect(desktop.locator(".desktop-icon")).toHaveText(["This PC", "Recycle Bin", "Games", "Resume", "Contact Me", "GitHub", "Projects"]);
   const github = desktop.getByRole("link", { name: "GitHub", exact: true });
   await expect(github).toHaveAttribute("href", "https://github.com/mhmmdmhdvi");
   await expect(github).toHaveAttribute("target", "_blank");

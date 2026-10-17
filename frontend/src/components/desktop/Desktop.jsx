@@ -11,6 +11,7 @@ const icons = [
   { name: "Resume", icon: "pdf", app: "resume" },
   { name: "Contact Me", icon: "contact", app: "contact" },
   { name: "GitHub", icon: "github", href: "https://github.com/mhmmdmhdvi" },
+  { name: "Projects", icon: "projects", href: "/projects" },
 ];
 
 export function Desktop() {

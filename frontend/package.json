@@ -9,6 +9,7 @@
     "dev:server": "go -C ../backend run ./cmd/server -dev",
     "build": "node scripts/build.mjs",
     "resume:pdf": "node scripts/resume-pdf.mjs",
+    "projects:images": "node scripts/project-images.mjs",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:server": "go -C ../backend test ./...",
@@ -23,6 +24,7 @@
     "@playwright/test": "1.64.0",
     "@tailwindcss/vite": "4.3.3",
     "@vitejs/plugin-react": "6.1.2",
+    "sharp": "0.35.5",
     "tailwindcss": "4.3.3",
     "vite": "8.3.4",
     "vitest": "5.0.4"

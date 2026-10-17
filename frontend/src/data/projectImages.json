@@ -1,0 +1,337 @@
+{
+  "secora": {
+    "cover": "/assets/projects/secora/cover.webp",
+    "images": [
+      {
+        "caption": "Home",
+        "full": "/assets/projects/secora/01-full.webp",
+        "preview": "/assets/projects/secora/01-page.webp",
+        "width": 1920,
+        "height": 912,
+        "previewWidth": 960,
+        "previewHeight": 456,
+        "cropped": false
+      },
+      {
+        "caption": "Mobile view",
+        "full": "/assets/projects/secora/02-full.webp",
+        "preview": "/assets/projects/secora/02-page.webp",
+        "width": 360,
+        "height": 1062,
+        "previewWidth": 360,
+        "previewHeight": 1062,
+        "cropped": false
+      },
+      {
+        "caption": "Lessons",
+        "full": "/assets/projects/secora/03-full.webp",
+        "preview": "/assets/projects/secora/03-page.webp",
+        "width": 1920,
+        "height": 9965,
+        "previewWidth": 960,
+        "previewHeight": 1296,
+        "cropped": true
+      },
+      {
+        "caption": "SQL injection exercise",
+        "full": "/assets/projects/secora/04-full.webp",
+        "preview": "/assets/projects/secora/04-page.webp",
+        "width": 1920,
+        "height": 941,
+        "previewWidth": 960,
+        "previewHeight": 471,
+        "cropped": false
+      },
+      {
+        "caption": "Lesson guide",
+        "full": "/assets/projects/secora/05-full.webp",
+        "preview": "/assets/projects/secora/05-page.webp",
+        "width": 1920,
+        "height": 7016,
+        "previewWidth": 960,
+        "previewHeight": 1296,
+        "cropped": true
+      },
+      {
+        "caption": "Quiz",
+        "full": "/assets/projects/secora/06-full.webp",
+        "preview": "/assets/projects/secora/06-page.webp",
+        "width": 1920,
+        "height": 1037,
+        "previewWidth": 960,
+        "previewHeight": 519,
+        "cropped": false
+      },
+      {
+        "caption": "Learning paths",
+        "full": "/assets/projects/secora/07-full.webp",
+        "preview": "/assets/projects/secora/07-page.webp",
+        "width": 1920,
+        "height": 2781,
+        "previewWidth": 960,
+        "previewHeight": 1391,
+        "cropped": false
+      },
+      {
+        "caption": "Profile · Persian",
+        "full": "/assets/projects/secora/08-full.webp",
+        "preview": "/assets/projects/secora/08-page.webp",
+        "width": 1920,
+        "height": 3462,
+        "previewWidth": 960,
+        "previewHeight": 1296,
+        "cropped": true
+      },
+      {
+        "caption": "Profile · English",
+        "full": "/assets/projects/secora/09-full.webp",
+        "preview": "/assets/projects/secora/09-page.webp",
+        "width": 1920,
+        "height": 3520,
+        "previewWidth": 960,
+        "previewHeight": 1296,
+        "cropped": true
+      }
+    ]
+  },
+  "honor-preinvoice": {
+    "cover": "/assets/projects/honor-preinvoice/cover.webp",
+    "images": [
+      {
+        "caption": "Customer details",
+        "full": "/assets/projects/honor-preinvoice/01-full.webp",
+        "preview": "/assets/projects/honor-preinvoice/01-page.webp",
+        "width": 540,
+        "height": 1200,
+        "previewWidth": 540,
+        "previewHeight": 1200,
+        "cropped": false
+      },
+      {
+        "caption": "Invoice details",
+        "full": "/assets/projects/honor-preinvoice/02-full.webp",
+        "preview": "/assets/projects/honor-preinvoice/02-page.webp",
+        "width": 540,
+        "height": 1200,
+        "previewWidth": 540,
+        "previewHeight": 1200,
+        "cropped": false
+      },
+      {
+        "caption": "Products and totals",
+        "full": "/assets/projects/honor-preinvoice/03-full.webp",
+        "preview": "/assets/projects/honor-preinvoice/03-page.webp",
+        "width": 540,
+        "height": 1200,
+        "previewWidth": 540,
+        "previewHeight": 1200,
+        "cropped": false
+      },
+      {
+        "caption": "Invoice preview",
+        "full": "/assets/projects/honor-preinvoice/04-full.webp",
+        "preview": "/assets/projects/honor-preinvoice/04-page.webp",
+        "width": 540,
+        "height": 1200,
+        "previewWidth": 540,
+        "previewHeight": 1200,
+        "cropped": false
+      },
+      {
+        "caption": "Product management",
+        "full": "/assets/projects/honor-preinvoice/05-full.webp",
+        "preview": "/assets/projects/honor-preinvoice/05-page.webp",
+        "width": 540,
+        "height": 1200,
+        "previewWidth": 540,
+        "previewHeight": 1200,
+        "cropped": false
+      }
+    ]
+  },
+  "megatite-crm": {
+    "cover": "/assets/projects/megatite-crm/cover.webp",
+    "images": [
+      {
+        "caption": "Sales panel",
+        "full": "/assets/projects/megatite-crm/01-full.webp",
+        "preview": "/assets/projects/megatite-crm/01-page.webp",
+        "width": 1920,
+        "height": 1263,
+        "previewWidth": 960,
+        "previewHeight": 632,
+        "cropped": false
+      },
+      {
+        "caption": "Overview",
+        "full": "/assets/projects/megatite-crm/02-full.webp",
+        "preview": "/assets/projects/megatite-crm/02-page.webp",
+        "width": 1920,
+        "height": 1641,
+        "previewWidth": 960,
+        "previewHeight": 821,
+        "cropped": false
+      },
+      {
+        "caption": "Sign in",
+        "full": "/assets/projects/megatite-crm/03-full.webp",
+        "preview": "/assets/projects/megatite-crm/03-page.webp",
+        "width": 1920,
+        "height": 912,
+        "previewWidth": 960,
+        "previewHeight": 456,
+        "cropped": false
+      },
+      {
+        "caption": "Overview · mobile",
+        "full": "/assets/projects/megatite-crm/04-full.webp",
+        "preview": "/assets/projects/megatite-crm/04-page.webp",
+        "width": 360,
+        "height": 2128,
+        "previewWidth": 360,
+        "previewHeight": 2128,
+        "cropped": false
+      },
+      {
+        "caption": "Sales panel · mobile",
+        "full": "/assets/projects/megatite-crm/05-full.webp",
+        "preview": "/assets/projects/megatite-crm/05-page.webp",
+        "width": 360,
+        "height": 1661,
+        "previewWidth": 360,
+        "previewHeight": 1661,
+        "cropped": false
+      }
+    ]
+  },
+  "megatite-chatbot": {
+    "cover": "/assets/projects/megatite-chatbot/cover.webp",
+    "images": [
+      {
+        "caption": "Chat",
+        "full": "/assets/projects/megatite-chatbot/01-full.webp",
+        "preview": "/assets/projects/megatite-chatbot/01-page.webp",
+        "width": 1920,
+        "height": 912,
+        "previewWidth": 960,
+        "previewHeight": 456,
+        "cropped": false
+      },
+      {
+        "caption": "Customer name",
+        "full": "/assets/projects/megatite-chatbot/02-full.webp",
+        "preview": "/assets/projects/megatite-chatbot/02-page.webp",
+        "width": 1920,
+        "height": 912,
+        "previewWidth": 960,
+        "previewHeight": 456,
+        "cropped": false
+      },
+      {
+        "caption": "Customer phone",
+        "full": "/assets/projects/megatite-chatbot/03-full.webp",
+        "preview": "/assets/projects/megatite-chatbot/03-page.webp",
+        "width": 1920,
+        "height": 912,
+        "previewWidth": 960,
+        "previewHeight": 456,
+        "cropped": false
+      },
+      {
+        "caption": "Operator sign in",
+        "full": "/assets/projects/megatite-chatbot/04-full.webp",
+        "preview": "/assets/projects/megatite-chatbot/04-page.webp",
+        "width": 1920,
+        "height": 980,
+        "previewWidth": 960,
+        "previewHeight": 490,
+        "cropped": false
+      },
+      {
+        "caption": "Administration",
+        "full": "/assets/projects/megatite-chatbot/05-full.webp",
+        "preview": "/assets/projects/megatite-chatbot/05-page.webp",
+        "width": 1920,
+        "height": 912,
+        "previewWidth": 960,
+        "previewHeight": 456,
+        "cropped": false
+      }
+    ]
+  },
+  "gitshield": {
+    "cover": "/assets/projects/gitshield/cover.webp",
+    "images": [
+      {
+        "caption": "Repository scan",
+        "full": "/assets/projects/gitshield/01-full.webp",
+        "preview": "/assets/projects/gitshield/01-page.webp",
+        "width": 1920,
+        "height": 910,
+        "previewWidth": 960,
+        "previewHeight": 455,
+        "cropped": false
+      }
+    ]
+  },
+  "chess-extension": {
+    "cover": "/assets/projects/chess-extension/cover.webp",
+    "images": [
+      {
+        "caption": "Move analysis",
+        "full": "/assets/projects/chess-extension/01-full.webp",
+        "preview": "/assets/projects/chess-extension/01-page.webp",
+        "width": 508,
+        "height": 803,
+        "previewWidth": 508,
+        "previewHeight": 803,
+        "cropped": false
+      }
+    ]
+  },
+  "date": {
+    "cover": "/assets/projects/date/cover.webp",
+    "images": [
+      {
+        "caption": "Invitation",
+        "full": "/assets/projects/date/01-full.webp",
+        "preview": "/assets/projects/date/01-page.webp",
+        "width": 1920,
+        "height": 912,
+        "previewWidth": 960,
+        "previewHeight": 456,
+        "cropped": false
+      },
+      {
+        "caption": "Location",
+        "full": "/assets/projects/date/02-full.webp",
+        "preview": "/assets/projects/date/02-page.webp",
+        "width": 1920,
+        "height": 912,
+        "previewWidth": 960,
+        "previewHeight": 456,
+        "cropped": false
+      },
+      {
+        "caption": "Date and time",
+        "full": "/assets/projects/date/03-full.webp",
+        "preview": "/assets/projects/date/03-page.webp",
+        "width": 1920,
+        "height": 912,
+        "previewWidth": 960,
+        "previewHeight": 456,
+        "cropped": false
+      },
+      {
+        "caption": "Contact details",
+        "full": "/assets/projects/date/04-full.webp",
+        "preview": "/assets/projects/date/04-page.webp",
+        "width": 1920,
+        "height": 912,
+        "previewWidth": 960,
+        "previewHeight": 456,
+        "cropped": false
+      }
+    ]
+  }
+}

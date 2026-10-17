@@ -6,6 +6,8 @@ The desktop has a four-second startup screen, a Start menu, File Explorer, and w
 
 Resume and Contact Me open directly from the desktop. Resume has a portrait, English and Persian versions, and a PDF download for each language. Contact Me has email, LinkedIn, and phone links, with copy buttons and both languages. The GitHub icon opens my profile in a new tab. There is no database.
 
+Projects opens the full-page bookshelf at `/projects`, with screenshot pages and a full-size image viewer. Resume and Contact are also available from the top navigation. Individual projects can be shared using URLs such as `/projects/honor-preinvoice`.
+
 ```text
 frontend/   React app, styles, assets, and browser tests
 backend/    Go server and portfolio files
@@ -45,6 +47,8 @@ The server accepts these environment variables:
 Paths are relative to `backend/` when using the commands above. Add public resume files to `backend/content/`; they appear in Documents. Supported formats are PDF, text, PNG, JPEG, WebP, GIF, MP3, and MP4. Keep private files outside that folder.
 
 Resume content lives in `frontend/src/data/resume.js` and `frontend/src/data/resume.fa.js`. After editing it, run `npm --prefix frontend run resume:pdf` to regenerate both PDFs in `backend/content/resume/`.
+
+Project screenshots are in `frontend/public/assets/projects/`. To rebuild the WebP images from the original project folders, run `npm --prefix frontend run projects:images -- "path/to/project library"`. The script creates the image manifest used by the bookshelf. Project labels and colors are in `frontend/src/data/projects.js`.
 
 To run the checks:
 

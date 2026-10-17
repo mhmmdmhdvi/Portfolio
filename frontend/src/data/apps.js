@@ -43,6 +43,7 @@ export const apps = {
   chess: { title: "Chess", icon: "chess", width: 860, height: 720 },
   resume: { title: "Resume", icon: "pdf", fileType: "PDF Document", width: 1060, height: 760 },
   contact: { title: "Contact Me", icon: "contact", width: 820, height: 730 },
+  projects: { title: "Projects", icon: "projects", width: 1120, height: 760 },
 };
 
 export const folders = [

@@ -48,3 +48,4 @@ body { margin: 0; font-family: "Segoe UI", Arial, sans-serif; }
 .resume-document[lang="fa"] { font-size: 9.5pt; line-height: 1.5; }
 .resume-document[lang="fa"] .resume-sidebar { line-height: 1.5; }
 .resume-document[lang="fa"] .resume-identity p { line-height: 1.5; }
+.resume-document[lang="fa"] .resume-project + .resume-project { margin-top: 5px; padding-top: 5px; }

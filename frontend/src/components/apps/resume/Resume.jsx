@@ -21,7 +21,6 @@ export function Resume() {
   return (
     <section className="resume-app" aria-label="Resume reader">
       <div className="resume-toolbar">
-        <span lang={language}><Glyph name="document" size={17} /> {resume.labels.toolbar}</span>
         <div className="resume-toolbar-actions">
           <div className="resume-language" role="group" aria-label="Resume language">
             <button lang="en" aria-pressed={language === "en"} onClick={() => setLanguage("en")}>English</button>

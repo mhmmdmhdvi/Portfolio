@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { BootScreen } from "./components/boot/BootScreen";
 import { Desktop } from "./components/desktop/Desktop";
 import { ShellPanels } from "./components/shell/ShellPanels";
@@ -9,6 +9,9 @@ import { DesktopProvider, useDesktop } from "./state/DesktopContext";
 import { useClock } from "./hooks/useClock";
 import { usePageVisible } from "./hooks/usePageVisible";
 import { getWallpaper } from "./data/wallpapers";
+import { usePortfolioRoute } from "./components/portfolio/usePortfolioRoute";
+
+const PortfolioView = lazy(() => import("./components/portfolio/PortfolioView").then((module) => ({ default: module.PortfolioView })));
 
 function WindowsShell() {
   const { preferences, power, setPower, bootKey, restart } = useDesktop();
@@ -81,9 +84,14 @@ function WindowsShell() {
 }
 
 export function App() {
+  const { route, navigate } = usePortfolioRoute();
   return (
-    <DesktopProvider>
-      <WindowsShell />
+    <DesktopProvider navigate={navigate}>
+      {route.section === "desktop" ? <WindowsShell /> : (
+        <Suspense fallback={<div className="empty-state">Loading…</div>}>
+          <PortfolioView route={route} navigate={navigate} />
+        </Suspense>
+      )}
     </DesktopProvider>
   );
 }

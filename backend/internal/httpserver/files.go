@@ -54,7 +54,7 @@ func (h *Handler) listFiles(w http.ResponseWriter, r *http.Request) {
 			files = append(files, fileEntry{Name: name, Path: strings.ToLower(name), Kind: "folder"})
 		}
 		files = append(files, gamesFolder())
-		files = append(files, resumeDocument(), contactDocument())
+		files = append(files, resumeDocument(), contactDocument(), projectsDocument())
 		writeJSON(w, r, map[string]any{"files": files})
 		return
 	}
@@ -63,7 +63,7 @@ func (h *Handler) listFiles(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if directory == "desktop" {
-		writeJSON(w, r, map[string]any{"files": []fileEntry{gamesFolder(), resumeDocument(), contactDocument()}})
+		writeJSON(w, r, map[string]any{"files": []fileEntry{gamesFolder(), resumeDocument(), contactDocument(), projectsDocument()}})
 		return
 	}
 	if directory == "games" {

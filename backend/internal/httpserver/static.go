@@ -68,7 +68,7 @@ func (h *Handler) serveWeb(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Vary", "Accept-Encoding")
 	if strings.HasPrefix(name, "assets/") && (strings.HasSuffix(name, ".js") || strings.HasSuffix(name, ".css")) {
 		w.Header().Set("Cache-Control", "public, max-age=31536000, immutable")
-	} else if strings.HasPrefix(name, "assets/") && (strings.HasSuffix(name, ".png") || strings.HasSuffix(name, ".jpg") || strings.HasSuffix(name, ".woff2")) {
+	} else if strings.HasPrefix(name, "assets/") && (strings.HasSuffix(name, ".png") || strings.HasSuffix(name, ".jpg") || strings.HasSuffix(name, ".webp") || strings.HasSuffix(name, ".woff2")) {
 		w.Header().Set("Cache-Control", "public, max-age=86400")
 	} else {
 		w.Header().Set("Cache-Control", "no-cache")

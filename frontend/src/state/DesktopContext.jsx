@@ -11,7 +11,7 @@ import { initialWindowState, windowReducer } from "./windows";
 
 const DesktopContext = createContext(null);
 
-export function DesktopProvider({ children }) {
+export function DesktopProvider({ children, navigate }) {
   const [state, dispatch] = useReducer(windowReducer, initialWindowState);
   const [panel, setPanel] = useState(null);
   const [contextMenu, setContextMenu] = useState(null);
@@ -20,6 +20,12 @@ export function DesktopProvider({ children }) {
   const [bootKey, setBootKey] = useState(0);
 
   function openApp(appId, payload) {
+    if (appId === "projects") {
+      navigate?.("/projects");
+      setPanel(null);
+      setContextMenu(null);
+      return;
+    }
     const app = apps[appId];
     if (!app) return;
     const width = Math.min(app.width, window.innerWidth - 24);

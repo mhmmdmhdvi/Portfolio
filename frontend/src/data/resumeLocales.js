@@ -9,8 +9,8 @@ export const resumeLocales = {
     language: "en",
     direction: "ltr",
     labels: {
-      toolbar: "Curriculum vitae",
-      download: "Download CV",
+      toolbar: "Resume",
+      download: "Download",
       document: "Resume document",
       portrait: "Portrait of Mohammad Mahdavi",
       sidebar: "Skills and education",

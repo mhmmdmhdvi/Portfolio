@@ -9,8 +9,9 @@ export function DesktopIcon({ item, size, selected, onSelect, onOpen }) {
   }
 
   if (item.href) {
+    const external = item.href.startsWith("https://");
     return (
-      <a className={className} aria-label={item.name} href={item.href} target="_blank" rel="noopener noreferrer" title="Open GitHub in a new tab" onClick={select}>
+      <a className={className} aria-label={item.name} href={item.href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined} title={external ? `Open ${item.name} in a new tab` : undefined} onClick={select}>
         {content}
       </a>
     );

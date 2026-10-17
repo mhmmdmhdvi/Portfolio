@@ -1,6 +1,10 @@
 import { resume } from "./resume";
 
 const projects = {
+  "honor-preinvoice": {
+    name: "Honor PreInvoice",
+    description: "اپلیکیشن اندروید برای تهیه پیش‌فاکتور، ثبت اطلاعات مشتری و افزودن، ویرایش یا حذف محصولات، با خروجی PDF و Excel مناسب چاپ روی کاغذ A4.",
+  },
   "megatite-crm": {
     name: "سامانه CRM شرکت Megatite",
     description: "سامانه مدیریت فروش، حسابداری، انبار و عملیات شرکت.",

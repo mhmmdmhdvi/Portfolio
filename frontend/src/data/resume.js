@@ -35,6 +35,12 @@ export const resume = {
   ],
   projects: [
     {
+      id: "honor-preinvoice",
+      name: "Honor PreInvoice",
+      description: "Android app for creating pro forma invoices, managing customer and product details, and exporting PDF or Excel files formatted for A4 printing.",
+      stack: ["React Native"],
+    },
+    {
       id: "megatite-crm",
       name: "Megatite CRM",
       description: "CRM for sales, accounting, inventory, and management.",

@@ -17,9 +17,11 @@ test("Resume opens directly from the desktop and uses only supplied professional
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   const resume = await openResume(page);
+  await expect(resume.getByText("Curriculum vitae", { exact: true })).toHaveCount(0);
   await expect(resume.getByText("Mid Level Full Stack Developer", { exact: true })).toBeVisible();
   await expect(resume.getByText("2021–2026", { exact: true })).toBeVisible();
   await expect(resume.getByRole("heading", { name: "Megatite CRM", exact: true })).toBeVisible();
+  await expect(resume.getByRole("heading", { name: "Honor PreInvoice", exact: true })).toHaveCount(1);
   await expect(resume.locator('a[href^="mailto:"], a[href^="https://github.com"]')).toHaveCount(0);
   await resume.getByRole("heading", { name: "Date", exact: true }).scrollIntoViewIfNeeded();
   await expect(resume.getByRole("heading", { name: "Date", exact: true })).toBeInViewport();
@@ -35,7 +37,7 @@ test("the PDF loads on demand and downloads as a real PDF", async ({ page }) => 
   const resume = await openResume(page);
   expect(requests).toEqual([]);
   const downloadEvent = page.waitForEvent("download");
-  await resume.getByRole("link", { name: "Download CV", exact: true }).click();
+  await resume.getByRole("link", { name: "Download", exact: true }).click();
   const download = await downloadEvent;
   expect(download.suggestedFilename()).toBe("Mohammad-Mahdavi-Resume.pdf");
   expect(await download.failure()).toBeNull();
